@@ -1,7 +1,8 @@
 /**
  * Invisible <svg> that holds reusable filter defs referenced across the page
  * via `filter: url(#sketchy)` (see the `.sketch` class in globals.css).
- * The turbulence + displacement combo gives clean SVG strokes a hand-drawn wobble.
+ * The turbulence + displacement combo gives clean SVG strokes a hand-drawn
+ * wobble; `#torn-edge` roughs up card backgrounds into torn paper.
  */
 export function SketchDefs() {
   return (
@@ -32,6 +33,19 @@ export function SketchDefs() {
             result="noise"
           />
           <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" />
+        </filter>
+
+        {/* Torn-paper edge — applied to card background layers only,
+            never to text (see TornCard). */}
+        <filter id="torn-edge">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.04"
+            numOctaves="3"
+            seed="11"
+            result="noise"
+          />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="10" />
         </filter>
       </defs>
     </svg>

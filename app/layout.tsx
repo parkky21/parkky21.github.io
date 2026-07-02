@@ -1,21 +1,22 @@
 import type { Metadata } from "next";
-import { Permanent_Marker, Kalam, Caveat } from "next/font/google";
+import { Poppins, Nunito, Caveat } from "next/font/google";
 import "./globals.css";
 import { SketchDefs } from "@/components/SketchDefs";
-import { SoundProvider } from "@/components/SoundProvider";
+import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
 import { profile } from "@/lib/data";
 
-const marker = Permanent_Marker({
-  weight: "400",
+const poppins = Poppins({
+  weight: ["500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-permanent-marker",
+  variable: "--font-poppins",
   display: "swap",
 });
 
-const kalam = Kalam({
-  weight: ["300", "400", "700"],
+const nunito = Nunito({
+  weight: ["400", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-kalam",
+  variable: "--font-nunito",
   display: "swap",
 });
 
@@ -27,7 +28,10 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: `${profile.name} — ${profile.title}`,
+  title: {
+    default: `${profile.name} — ${profile.title}`,
+    template: `%s — ${profile.name}`,
+  },
   description: profile.tagline,
 };
 
@@ -39,11 +43,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${marker.variable} ${kalam.variable} ${caveat.variable}`}
+      data-scroll-behavior="smooth"
+      className={`${poppins.variable} ${nunito.variable} ${caveat.variable}`}
     >
-      <body className="min-h-screen">
+      <body className="min-h-screen bg-paper text-ink">
         <SketchDefs />
-        <SoundProvider>{children}</SoundProvider>
+        <Nav />
+        {children}
+        <Footer />
       </body>
     </html>
   );

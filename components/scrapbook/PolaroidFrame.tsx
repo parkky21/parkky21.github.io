@@ -1,40 +1,41 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { playSound } from "@/lib/sound";
+import { WashiTape } from "./WashiTape";
 
-export function Polaroid({
+/** A polaroid-style photo frame taped onto the page. */
+export function PolaroidFrame({
   src,
   alt,
   caption,
+  rotate = -3,
+  width = 250,
+  className = "",
 }: {
   src?: string;
   alt: string;
   caption: string;
+  rotate?: number;
+  width?: number;
+  className?: string;
 }) {
   return (
-    <motion.div
-      className="relative shrink-0"
-      initial={{ opacity: 0, y: -20, rotate: -8 }}
-      animate={{ opacity: 1, y: 0, rotate: -3 }}
-      transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-      whileHover={{ rotate: 0, scale: 1.02 }}
-      onHoverStart={() => playSound("pop")}
+    <div
+      className={`relative shrink-0 ${className}`}
+      style={{ transform: `rotate(${rotate}deg)`, width }}
     >
-      {/* the polaroid card */}
-      <div className="relative bg-white p-3 pb-14 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35)]">
-        {/* tape strip */}
-        <span className="tape" aria-hidden />
+      <div className="relative bg-white p-3 pb-14 shadow-[0_10px_30px_-10px_rgba(58,47,47,0.35)]">
+        <WashiTape
+          color="kraft"
+          className="-top-3 left-1/2 h-6 w-20 -translate-x-1/2 -rotate-3"
+        />
 
-        <div className="relative aspect-[4/5] w-[220px] overflow-hidden bg-stone-100 sm:w-[250px]">
+        <div className="relative aspect-[4/5] w-full overflow-hidden bg-stone-100">
           {src ? (
             <Image
               src={src}
               alt={alt}
               fill
               priority
-              sizes="250px"
+              sizes={`${width}px`}
               className="object-cover"
             />
           ) : (
@@ -42,11 +43,11 @@ export function Polaroid({
           )}
         </div>
 
-        <p className="absolute inset-x-0 bottom-3 text-center font-display text-2xl text-ink/80">
+        <p className="absolute inset-x-0 bottom-3 text-center font-hand text-2xl text-ink/80">
           {caption}
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

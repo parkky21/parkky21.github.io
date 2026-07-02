@@ -1,53 +1,57 @@
 "use client";
 
-import { playSound } from "@/lib/sound";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { profile } from "@/lib/data";
-import { MuteToggle } from "./MuteToggle";
+import { Sticker } from "./scrapbook/Sticker";
 
 const links = [
-  { href: "#path", label: "the path" },
-  { href: "#projects", label: "projects" },
-  { href: "#skills", label: "skills" },
-  { href: "#contact", label: "say hi" },
+  { href: "/", label: "home" },
+  { href: "/projects", label: "projects" },
+  { href: "/about", label: "about" },
+  { href: "/resume", label: "resume" },
 ];
 
 export function Nav() {
+  const pathname = usePathname();
+
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
+    <header className="no-print sticky top-0 z-50 border-b border-ink/10 bg-paper/80 backdrop-blur-sm">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-y-1 px-3 py-3 sm:px-5">
+        {/* Logo sticker */}
+        <Link href="/" aria-label="Home">
+          <Sticker
+            rotate={-2}
+            className="font-hand text-base font-bold text-ink sm:text-lg"
+          >
+            {profile.nickname || profile.name.split(" ")[0]}
+            <span className="text-accent">✦</span>
+          </Sticker>
+        </Link>
 
-        {/* Logo */}
-        <a
-          href="#top"
-          className="font-marker text-lg text-ink sm:text-xl"
-          onMouseEnter={() => playSound("tick")}
-          onClick={() => playSound("click")}
-        >
-          {profile.nickname || profile.name.split(" ")[0]}
-          <span className="text-marker-blue">.</span>
-        </a>
-
-        {/* Desktop nav links — hidden on mobile */}
-        <nav className="hidden items-center gap-6 sm:flex sm:gap-7">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="group relative font-hand text-lg text-ink/80 transition-colors hover:text-ink"
-              onMouseEnter={() => playSound("tick")}
-              onClick={() => playSound("click")}
-            >
-              {l.label}
-              <span className="pointer-events-none absolute -bottom-1 left-0 h-[3px] w-0 rounded-full bg-marker-blue transition-all duration-300 group-hover:w-full" />
-            </a>
-          ))}
-          <MuteToggle />
+        <nav className="flex items-center gap-3 sm:gap-6">
+          {links.map((l) => {
+            const active = pathname === l.href;
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                aria-current={active ? "page" : undefined}
+                className={`group relative py-1 font-hand text-base transition-colors sm:text-lg ${
+                  active ? "text-ink" : "text-ink-soft hover:text-ink"
+                }`}
+              >
+                {l.label}
+                {/* washi-style underline bar */}
+                <span
+                  className={`pointer-events-none absolute -bottom-0.5 left-0 h-[5px] w-full -rotate-1 rounded-[1px] bg-accent transition-opacity duration-300 ${
+                    active ? "opacity-60" : "opacity-0 group-hover:opacity-25"
+                  }`}
+                />
+              </Link>
+            );
+          })}
         </nav>
-
-        {/* Mobile: mute toggle only */}
-        <div className="sm:hidden">
-          <MuteToggle />
-        </div>
       </div>
     </header>
   );

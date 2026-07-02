@@ -21,8 +21,12 @@ export const profile = {
   // A short, hand-written intro shown near the top of the page.
   intro:
     "Hey — I'm Parth. My work lives at the intersection of machine learning, distributed systems, and human interaction. I enjoy building things from first principles, pushing models beyond demos, and crafting AI that feels less like software and more like intelligence",
-  
+
   introCircle:"Let's cook !",
+
+  // A tighter, professional summary used on the printable resume page.
+  resumeSummary:
+    "AI Engineer building production-grade voice agents, language models, and multimodal systems. Experience shipping fault-tolerant AI services handling 60,000+ calls/day, fine-tuning multilingual speech models, and owning the full lifecycle from prototype to cloud deployment.",
 };
 
 // ----------------------------------------------------------------------------
@@ -114,6 +118,8 @@ export type Project = {
   // Replace "#" with the real GitHub URL, e.g. "https://github.com/parkky21/slm"
   repo?: string;
   link?: string;
+  // Featured projects show up on the home page (and the resume).
+  featured?: boolean;
 };
 
 export const projects: Project[] = [
@@ -125,6 +131,7 @@ export const projects: Project[] = [
     tags: ["PyTorch", "GPT-2", "Tokenizer", "Pretraining"],
     color: "orange",
     repo: "https://github.com/parkky21/Marathi-SLM",
+    featured: true,
   },
   {
     name: "OpenBee — Offline Voice Assistant",
@@ -134,6 +141,7 @@ export const projects: Project[] = [
     tags: ["Whisper", "Gemma", "Kokoro", "LiveKit", "React"],
     color: "yellow",
     repo: "https://github.com/parkky21/OpenBee",
+    featured: true,
   },
   {
     name: "MemorySearch — Semantic Image Search",
@@ -152,6 +160,7 @@ export const projects: Project[] = [
     tags: ["LlamaIndex", "LangGraph", "RAG", "FastAPI"],
     color: "green",
     repo: "https://github.com/parkky21/LocalMind",
+    featured: true,
   },
   {
     name: "Alice — Home Surveillance System",
@@ -161,6 +170,7 @@ export const projects: Project[] = [
     tags: ["QwenVL", "Quantization", "LiveKit", "Twilio"],
     color: "purple",
     repo: "https://github.com/parkky21/Alice",
+    featured: true,
   },
   {
     name: "Draupadi — AI Safety App",
