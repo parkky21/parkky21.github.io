@@ -1,6 +1,9 @@
 import { blogs } from "@/lib/data";
+import { noteTint } from "@/lib/palette";
+import { Sparkle } from "@/components/Doodles";
 import { Reveal } from "@/components/scrapbook/Reveal";
 import { SectionHeading } from "@/components/scrapbook/SectionHeading";
+import { Sticker } from "@/components/scrapbook/Sticker";
 import { TornCard } from "@/components/scrapbook/TornCard";
 import { WashiTape } from "@/components/scrapbook/WashiTape";
 
@@ -10,9 +13,38 @@ const FOLD_COLORS = ["#f5d9ac", "#cde6e2"];
 export function WritingSection() {
   return (
     <section className="relative mx-auto max-w-5xl px-5 py-16">
+      {/* scattered scrapbook decorations */}
+      <Sparkle className="absolute left-[4%] top-14 h-8 w-8 -rotate-6 opacity-75" />
+      <Sparkle
+        className="absolute right-[6%] bottom-24 hidden h-6 w-6 rotate-12 opacity-70 md:block"
+        color="var(--color-teal)"
+      />
+      <div
+        aria-hidden
+        className="absolute left-[10%] top-8 hidden -rotate-6 select-none lg:block"
+      >
+        <Sticker rotate={-8} tint="var(--color-note-pink)">
+          <span className="font-hand text-lg font-bold text-ink/85">
+            3am brain dumps
+          </span>
+          ✍️
+        </Sticker>
+      </div>
+      <div
+        aria-hidden
+        className="absolute right-[9%] top-12 hidden rotate-3 select-none lg:block"
+      >
+        <Sticker rotate={6} tint="var(--color-note-green)">
+          <span className="font-hand text-lg font-bold text-ink/85">
+            read w/ chai
+          </span>
+          ☕
+        </Sticker>
+      </div>
+
       <SectionHeading kicker="from the notebook" title="Writing" />
 
-      <div className="flex flex-col items-center gap-8 sm:flex-row sm:flex-wrap sm:justify-center">
+      <div className="flex flex-col items-center gap-10 sm:flex-row sm:flex-wrap sm:justify-center">
         {blogs.map((b, i) => (
           <BlogCard
             key={b.title}
@@ -33,12 +65,13 @@ function BlogCard({
   tint,
   foldColor,
 }: {
-  blog: { title: string; link?: string };
+  blog: (typeof blogs)[number];
   index: number;
   tint: string;
   foldColor: string;
 }) {
   const tilt = index % 2 === 0 ? -1.2 : 1.4;
+  const stickerTilt = index % 2 === 0 ? 8 : -7;
 
   return (
     <Reveal rotate={tilt} delay={index * 0.1} className="w-full sm:w-[320px]">
@@ -47,8 +80,26 @@ function BlogCard({
         target={blog.link && blog.link !== "#" ? "_blank" : undefined}
         rel="noreferrer"
         aria-label={blog.title}
-        className="group block transition-transform duration-300 hover:-translate-y-1.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+        className="group relative block transition-transform duration-300 hover:-translate-y-1.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
       >
+        {/* die-cut sticker slapped onto the corner */}
+        {blog.sticker && (
+          <span
+            aria-hidden
+            className="absolute -right-2 -top-4 z-20 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:rotate-3"
+          >
+            <Sticker
+              rotate={stickerTilt}
+              tint={blog.tint ? noteTint[blog.tint] : "var(--color-note-yellow)"}
+            >
+              <span className="font-hand text-base font-bold text-ink/85">
+                {blog.sticker}
+              </span>
+              {blog.emoji}
+            </Sticker>
+          </span>
+        )}
+
         <TornCard tint={tint} contentClassName="px-6 pb-8 pt-5">
           <WashiTape
             color={index % 2 === 0 ? "amber" : "teal"}

@@ -3,7 +3,6 @@ import { profile } from "@/lib/data";
 import { Timeline } from "@/components/about/Timeline";
 import { SkillsSection } from "@/components/about/SkillsSection";
 import { OpenSourceSection } from "@/components/about/OpenSourceSection";
-import { WritingSection } from "@/components/about/WritingSection";
 import { Annotation } from "@/components/scrapbook/Annotation";
 import { PolaroidFrame } from "@/components/scrapbook/PolaroidFrame";
 import { Reveal } from "@/components/scrapbook/Reveal";
@@ -55,7 +54,6 @@ export default function AboutPage() {
       <Timeline />
       <SkillsSection />
       <OpenSourceSection />
-      <WritingSection />
     </main>
   );
 }

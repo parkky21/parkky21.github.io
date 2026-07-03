@@ -232,7 +232,27 @@ export const openSource = [
   "Active contributor to open-source AI and voice-agent ecosystems.",
 ];
 
-export const blogs: { title: string; link?: string }[] = [
-  { title: "GPT Architecture — a simple explanation", link: "https://medium.com/@parkky/inside-the-magic-box-of-gpt-bde3bae13752" },
-  { title: "Causal Attention & Multi-head Attention", link: "https://medium.com/@parkky/inside-the-magic-box-2-causal-attention-and-multi-head-attention-0a9366da1d50" },
+// `sticker` is a little die-cut label slapped on the card; `emoji` and `tint`
+// (yellow | pink | blue | green | orange | purple) style it. All optional.
+export const blogs: {
+  title: string;
+  link?: string;
+  sticker?: string;
+  emoji?: string;
+  tint?: "yellow" | "pink" | "blue" | "green" | "orange" | "purple";
+}[] = [
+  {
+    title: "GPT Architecture — a simple explanation",
+    link: "https://medium.com/@parkky/inside-the-magic-box-of-gpt-bde3bae13752",
+    sticker: "start here",
+    emoji: "🧠",
+    tint: "blue",
+  },
+  {
+    title: "Causal Attention & Multi-head Attention",
+    link: "https://medium.com/@parkky/inside-the-magic-box-2-causal-attention-and-multi-head-attention-0a9366da1d50",
+    sticker: "deep dive",
+    emoji: "🔍",
+    tint: "pink",
+  },
 ];
