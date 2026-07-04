@@ -1,4 +1,4 @@
-import { profile } from "@/lib/data";
+import { hero, profile } from "@/lib/data";
 import {
   Arrow,
   ChipDoodle,
@@ -40,17 +40,16 @@ export function Hero() {
             color="kraft"
             className="-top-2.5 left-1/2 h-5 w-16 -translate-x-1/2 rotate-2"
           />
-          <p className="font-hand text-base font-bold text-ink/55 line-through decoration-2">
-            rule engines
-          </p>
-          <p className="font-hand text-base font-bold text-ink/55 line-through decoration-2">
-            if / else forever
-          </p>
-          <p className="font-hand text-base font-bold text-ink/55 line-through decoration-2">
-            regex sorcery
-          </p>
+          {hero.oldApproaches.map((line) => (
+            <p
+              key={line}
+              className="font-hand text-base font-bold text-ink/55 line-through decoration-2"
+            >
+              {line}
+            </p>
+          ))}
           <p className="mt-2 font-hand text-lg font-bold leading-tight text-accent-deep">
-            1 realization: just teach the machine ✨
+            {hero.realization}
           </p>
         </TornCard>
       </div>
@@ -69,8 +68,7 @@ export function Hero() {
         >
           <WashiTape color="teal" className="-top-2.5 right-6 h-5 w-16 rotate-6" />
           <p className="font-hand text-xl leading-snug text-ink/85">
-            “the best AI feels less like software and more like someone
-            listening.”
+            “{hero.quote}”
           </p>
         </TornCard>
       </div>
@@ -86,7 +84,7 @@ export function Hero() {
       >
         <RobotDoodle className="h-10 w-10" />
         <p className="mt-1 text-center font-hand text-xs font-bold tracking-wide text-ink/60">
-          PAR AVION
+          {hero.airmailLabel}
         </p>
       </div>
 
@@ -118,7 +116,7 @@ export function Hero() {
         tone="teal"
         className="absolute right-[3%] top-[44%] hidden -rotate-3 xl:block"
       >
-        ↑ neurons, doing their thing
+        {hero.annotations.neurons}
       </Annotation>
       <ChipDoodle className="absolute left-[3%] top-[44%] hidden h-16 w-16 -rotate-6 opacity-85 lg:block" />
       <RobotDoodle className="absolute bottom-[7%] left-[8%] hidden h-20 w-20 rotate-6 opacity-90 md:block" />
@@ -126,7 +124,7 @@ export function Hero() {
         tone="soft"
         className="absolute bottom-[4%] left-[15%] hidden rotate-2 md:block"
       >
-        hi, human 👋
+        {hero.annotations.hiHuman}
       </Annotation>
       <LossCurve className="absolute bottom-[36%] right-[3%] hidden h-20 w-28 -rotate-2 xl:block" />
 
@@ -137,9 +135,9 @@ export function Hero() {
       >
         <Sticker rotate={-7} tint="var(--color-note-blue)">
           <span className="font-mono text-xs font-semibold text-ink/80">
-            model.train()
+            {hero.stickers.modelTrain.text}
           </span>
-          🧠
+          {hero.stickers.modelTrain.emoji}
         </Sticker>
       </div>
       <div
@@ -148,9 +146,9 @@ export function Hero() {
       >
         <Sticker rotate={5} tint="var(--color-note-orange)">
           <span className="font-hand text-lg font-bold text-ink/85">
-            gpu go brrr
+            {hero.stickers.gpuBrrr.text}
           </span>
-          🔥
+          {hero.stickers.gpuBrrr.emoji}
         </Sticker>
       </div>
       <div
@@ -159,9 +157,9 @@ export function Hero() {
       >
         <Sticker rotate={-4} tint="var(--color-note-pink)">
           <span className="font-hand text-lg font-bold text-ink/85">
-            ship it
+            {hero.stickers.shipIt.text}
           </span>
-          🚀
+          {hero.stickers.shipIt.emoji}
         </Sticker>
       </div>
       <div
@@ -170,9 +168,9 @@ export function Hero() {
       >
         <Sticker rotate={4} tint="var(--color-note-yellow)">
           <span className="font-hand text-lg font-bold text-ink/85">
-            loss ↓ vibes ↑
+            {hero.stickers.lossVibes.text}
           </span>
-          📉
+          {hero.stickers.lossVibes.emoji}
         </Sticker>
       </div>
       <div
@@ -181,9 +179,9 @@ export function Hero() {
       >
         <Sticker rotate={-4} tint="var(--color-note-green)">
           <span className="font-hand text-lg font-bold text-ink/85">
-            attention is all you need
+            {hero.stickers.attention.text}
           </span>
-          📎
+          {hero.stickers.attention.emoji}
         </Sticker>
       </div>
 
@@ -201,7 +199,7 @@ export function Hero() {
             tone="accent"
             className="absolute -bottom-9 right-0 hidden -rotate-3 md:block"
           >
-            ↑ exhibit A
+            {hero.annotations.exhibitA}
           </Annotation>
         </Reveal>
 
@@ -209,7 +207,7 @@ export function Hero() {
         <div className="flex flex-col items-center md:items-start">
           <Reveal delay={0.1}>
             <p className="mb-3 font-hand text-xl text-ink-soft">
-              ✂️ pasted fresh into the scrapbook —
+              {hero.kicker}
             </p>
             <div className="relative inline-block">
               <h1 className="font-heading text-5xl font-bold leading-tight text-ink sm:text-6xl lg:text-7xl">

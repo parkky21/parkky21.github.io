@@ -45,7 +45,7 @@ export default function AboutPage() {
               About me
             </h1>
             <p className="mt-4 font-hand text-2xl leading-relaxed text-ink/90">
-              {profile.intro}
+              {profile.introAbout}
             </p>
           </TornCard>
         </Reveal>

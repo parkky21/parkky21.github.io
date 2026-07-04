@@ -18,8 +18,12 @@ export const profile = {
     github: "https://github.com/parkky21",
     linkedin: "https://linkedin.com/in/parkky",
   },
-  // A short, hand-written intro shown near the top of the page.
-  intro:
+  // A short, hand-written intro shown near the top of the home page.
+  introHome:
+    "Hey — I'm Parth. My work lives at the intersection of machine learning, distributed systems, and human interaction. I enjoy building things from first principles, pushing models beyond demos, and crafting AI that feels less like software and more like intelligence",
+
+  // The intro shown on the About page — separate from introHome so each can be tuned independently.
+  introAbout:
     "Hey — I'm Parth. My work lives at the intersection of machine learning, distributed systems, and human interaction. I enjoy building things from first principles, pushing models beyond demos, and crafting AI that feels less like software and more like intelligence",
 
   introCircle:"Let's cook !",
@@ -27,6 +31,40 @@ export const profile = {
   // A tighter, professional summary used on the printable resume page.
   resumeSummary:
     "AI Engineer building production-grade voice agents, language models, and multimodal systems. Experience shipping fault-tolerant AI services handling 60,000+ calls/day, fine-tuning multilingual speech models, and owning the full lifecycle from prototype to cloud deployment.",
+};
+
+// ----------------------------------------------------------------------------
+//  Hero section — the home page's opening scrapbook collage. Layout,
+//  rotation, and color stay in components/home/Hero.tsx; only the copy lives
+//  here so it can be edited without touching JSX.
+// ----------------------------------------------------------------------------
+
+export const hero = {
+  kicker: "✂️ pasted fresh into the scrapbook —",
+
+  // top-left torn note: crossed-out "old" approaches + the punchline
+  oldApproaches: ["rule engines", "if / else forever", "regex sorcery"],
+  realization: "1 realization: just teach the machine ✨",
+
+  // bottom-right torn note: a hand-written motto
+  quote:
+    "the best AI feels less like software and more like someone listening.",
+
+  airmailLabel: "PAR AVION",
+
+  stickers: {
+    modelTrain: { text: "model.train()", emoji: "🧠" },
+    gpuBrrr: { text: "gpu go brrr", emoji: "🔥" },
+    shipIt: { text: "ship it", emoji: "🚀" },
+    lossVibes: { text: "loss ↓ vibes ↑", emoji: "📉" },
+    attention: { text: "attention is all you need", emoji: "📎" },
+  },
+
+  annotations: {
+    neurons: "↑ neurons, doing their thing",
+    hiHuman: "hi, human 👋",
+    exhibitA: "↑ exhibit A",
+  },
 };
 
 // ----------------------------------------------------------------------------
@@ -221,6 +259,20 @@ export const skillGroups: { label: string; items: string[] }[] = [
     label: "Databases",
     items: ["PostgreSQL / NeonDB", "MongoDB"],
   },
+];
+
+// ----------------------------------------------------------------------------
+//  Rule book — the philosophies written across the open book on the home page.
+//  First half lands on the left page, second half on the right.
+// ----------------------------------------------------------------------------
+
+export const rulebook: string[] = [
+  "build it from scratch at least once — that's the only way I trust that I understand it.",
+  "a demo is a promise, not a product. ship the boring parts too.",
+  "speed is a feature — nobody wants an AI that pauses to think.",
+  "own the whole thing: the prototype, the prod deploy, and the 3am logs.",
+  "small models + sharp constraints beat big models + vibes.",
+  "stay a student — this field reinvents itself every six months.",
 ];
 
 // ----------------------------------------------------------------------------

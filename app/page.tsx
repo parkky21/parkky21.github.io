@@ -1,5 +1,6 @@
 import { Hero } from "@/components/home/Hero";
 import { IntroNote } from "@/components/home/IntroNote";
+import { RuleBook } from "@/components/home/RuleBook";
 import { WritingSection } from "@/components/about/WritingSection";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <main className="relative">
       <Hero />
       <IntroNote />
+      <RuleBook />
       <WritingSection />
     </main>
   );

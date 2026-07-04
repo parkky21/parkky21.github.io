@@ -36,7 +36,7 @@ export function IntroNote() {
           />
 
           <p className="font-hand text-2xl leading-relaxed text-ink/90">
-            {profile.intro}
+            {profile.introHome}
           </p>
 
           <div className="relative mt-7 inline-block">
