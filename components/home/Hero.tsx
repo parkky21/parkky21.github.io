@@ -12,31 +12,109 @@ import { Annotation } from "@/components/scrapbook/Annotation";
 import { PolaroidFrame } from "@/components/scrapbook/PolaroidFrame";
 import { Reveal } from "@/components/scrapbook/Reveal";
 import { Sticker } from "@/components/scrapbook/Sticker";
+import { TornCard } from "@/components/scrapbook/TornCard";
 import { WashiTape } from "@/components/scrapbook/WashiTape";
 
 export function Hero() {
   return (
     <section className="relative mx-auto flex min-h-[80vh] max-w-6xl items-center px-5 py-16">
-      {/* scattered scrapbook decorations */}
-      <WashiTape
-        color="teal"
-        className="left-[4%] top-[10%] hidden h-7 w-28 -rotate-[24deg] md:block"
-      />
-      <Sparkle className="absolute left-[8%] top-[24%] h-9 w-9 rotate-6 opacity-80" />
-      <Sparkle
-        className="absolute right-[10%] top-[16%] h-6 w-6 -rotate-12 opacity-70"
-        color="var(--color-teal)"
-      />
+      {/* ----------------------------------------------------------------
+          Scrapbook collage — everything hugs the edges so the center
+          column (polaroid + name) always breathes. Bigger paper scraps
+          only appear at xl, where the side gutters are wide enough.
+          ---------------------------------------------------------------- */}
+
+      {/* torn note, top-left: the crossed-out list of old approaches */}
+      <div
+        aria-hidden
+        className="absolute left-[1.5%] top-[6%] hidden select-none xl:block"
+      >
+        <TornCard
+          tint="var(--color-note-yellow)"
+          rotate={-5}
+          className="w-44"
+          contentClassName="px-4 py-4"
+        >
+          <WashiTape
+            color="kraft"
+            className="-top-2.5 left-1/2 h-5 w-16 -translate-x-1/2 rotate-2"
+          />
+          <p className="font-hand text-base font-bold text-ink/55 line-through decoration-2">
+            rule engines
+          </p>
+          <p className="font-hand text-base font-bold text-ink/55 line-through decoration-2">
+            if / else forever
+          </p>
+          <p className="font-hand text-base font-bold text-ink/55 line-through decoration-2">
+            regex sorcery
+          </p>
+          <p className="mt-2 font-hand text-lg font-bold leading-tight text-accent-deep">
+            1 realization: just teach the machine ✨
+          </p>
+        </TornCard>
+      </div>
+
+      {/* quote note, bottom-right: torn scrap with a hand-written motto */}
+      <div
+        aria-hidden
+        className="absolute bottom-[5%] right-[2%] hidden select-none xl:block"
+      >
+        <TornCard
+          tint="#fffdf6"
+          rotate={2}
+          className="w-48"
+          contentClassName="px-5 py-5"
+        >
+          <WashiTape color="teal" className="-top-2.5 right-6 h-5 w-16 rotate-6" />
+          <p className="font-hand text-xl leading-snug text-ink/85">
+            “the best AI feels less like software and more like someone
+            listening.”
+          </p>
+        </TornCard>
+      </div>
       <Arrow
-        className="absolute bottom-[14%] right-[8%] hidden h-16 w-16 -rotate-12 opacity-60 lg:block"
+        className="absolute bottom-[13%] right-[20%] hidden h-14 w-14 rotate-[30deg] opacity-60 xl:block"
         color="var(--color-teal)"
       />
 
-      {/* AI-lab scatter — neurons, silicon, and a loss curve behaving itself */}
-      <NeuralNet className="absolute right-[3%] top-[26%] hidden h-24 w-32 rotate-3 opacity-80 lg:block" />
+      {/* airmail stamp, left edge */}
+      <div
+        aria-hidden
+        className="absolute bottom-[22%] left-[2.5%] hidden rotate-6 select-none border-2 border-dashed border-ink/30 bg-white/80 p-2 shadow-[0_2px_6px_rgba(58,47,47,0.15)] lg:block"
+      >
+        <RobotDoodle className="h-10 w-10" />
+        <p className="mt-1 text-center font-hand text-xs font-bold tracking-wide text-ink/60">
+          PAR AVION
+        </p>
+      </div>
+
+      {/* washi + sparkles scattered along the top */}
+      <WashiTape
+        color="teal"
+        className="left-[36%] top-[5%] hidden h-7 w-28 -rotate-[24deg] md:block"
+      />
+      <WashiTape
+        color="amber"
+        className="right-[3%] top-[20%] hidden h-6 w-24 rotate-[18deg] lg:block"
+      />
+      <Sparkle className="absolute left-[8%] top-[26%] hidden h-9 w-9 rotate-6 opacity-80 md:block" />
+      <Sparkle
+        className="absolute right-[10%] top-[14%] h-6 w-6 -rotate-12 opacity-70"
+        color="var(--color-teal)"
+      />
+      <Sparkle
+        className="absolute bottom-[8%] left-[30%] hidden h-6 w-6 rotate-12 opacity-70 lg:block"
+        color="var(--color-teal)"
+      />
+
+      {/* AI-lab scatter — neurons, silicon, and a loss curve behaving itself.
+          These sit close to the text column's right edge, so they wait for
+          xl: below that, the section is narrower than its max-w cap and
+          there isn't enough gutter yet. */}
+      <NeuralNet className="absolute right-[2%] top-[26%] hidden h-24 w-32 rotate-3 opacity-80 xl:block" />
       <Annotation
         tone="teal"
-        className="absolute right-[4%] top-[48%] hidden -rotate-3 lg:block"
+        className="absolute right-[3%] top-[44%] hidden -rotate-3 xl:block"
       >
         ↑ neurons, doing their thing
       </Annotation>
@@ -48,7 +126,7 @@ export function Hero() {
       >
         hi, human 👋
       </Annotation>
-      <LossCurve className="absolute bottom-[28%] right-[5%] hidden h-20 w-28 -rotate-2 lg:block" />
+      <LossCurve className="absolute bottom-[36%] right-[3%] hidden h-20 w-28 -rotate-2 xl:block" />
 
       {/* sticker pills */}
       <div
@@ -71,6 +149,28 @@ export function Hero() {
             gpu go brrr
           </span>
           🔥
+        </Sticker>
+      </div>
+      <div
+        aria-hidden
+        className="absolute right-[34%] top-[3%] hidden select-none lg:block"
+      >
+        <Sticker rotate={-4} tint="var(--color-note-pink)">
+          <span className="font-hand text-lg font-bold text-ink/85">
+            ship it
+          </span>
+          🚀
+        </Sticker>
+      </div>
+      <div
+        aria-hidden
+        className="absolute bottom-[27%] right-[5%] hidden select-none xl:block"
+      >
+        <Sticker rotate={4} tint="var(--color-note-yellow)">
+          <span className="font-hand text-lg font-bold text-ink/85">
+            loss ↓ vibes ↑
+          </span>
+          📉
         </Sticker>
       </div>
       <div
