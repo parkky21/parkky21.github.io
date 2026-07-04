@@ -70,14 +70,18 @@ body {
   -webkit-box-decoration-break: clone;
 }
 
-/* Die-cut stickers keep their tilt via a CSS var so hover can build on it:
-   a little extra spin + pop, like nudging a sticker with your finger. */
-.sticker-tilt {
-  transform: rotate(var(--sticker-rotate, 0deg));
+/* Scrapbook bits (stickers, torn cards, polaroids) keep their tilt via a CSS
+   var. `.scrap-tilt` alone just holds that base rotation in place;
+   `.scrap-tilt-hover` opts an element into the extra spin + pop on hover,
+   like nudging the paper with your finger. */
+.scrap-tilt {
+  transform: rotate(var(--tilt-rotate, 0deg));
+}
+.scrap-tilt-hover {
   transition: transform 0.25s ease;
 }
-.sticker-tilt:hover {
-  transform: rotate(calc(var(--sticker-rotate, 0deg) + 8deg)) scale(1.08);
+.scrap-tilt-hover:hover {
+  transform: rotate(calc(var(--tilt-rotate, 0deg) + 8deg)) scale(1.08);
 }
 
 /* Reduce motion for folks who ask for it */
@@ -85,7 +89,7 @@ body {
   html {
     scroll-behavior: auto;
   }
-  .sticker-tilt {
+  .scrap-tilt-hover {
     transition: none;
   }
 }

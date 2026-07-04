@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { WashiTape } from "./WashiTape";
 
@@ -8,6 +9,7 @@ export function PolaroidFrame({
   caption,
   rotate = -3,
   width = 250,
+  hoverTilt = false,
   className = "",
 }: {
   src?: string;
@@ -15,12 +17,13 @@ export function PolaroidFrame({
   caption: string;
   rotate?: number;
   width?: number;
+  hoverTilt?: boolean;
   className?: string;
 }) {
   return (
     <div
-      className={`relative shrink-0 ${className}`}
-      style={{ transform: `rotate(${rotate}deg)`, width }}
+      className={`scrap-tilt relative shrink-0 ${hoverTilt ? "scrap-tilt-hover" : ""} ${className}`}
+      style={{ "--tilt-rotate": `${rotate}deg`, width } as CSSProperties}
     >
       <div className="relative bg-white p-3 pb-14 shadow-[0_10px_30px_-10px_rgba(58,47,47,0.35)]">
         <WashiTape

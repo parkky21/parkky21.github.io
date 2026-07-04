@@ -17,10 +17,10 @@ export function Sticker({
 }) {
   return (
     <span
-      className={`sticker-tilt inline-flex items-center gap-1.5 rounded-full border border-ink/10 px-3 py-1 shadow-[0_2px_6px_rgba(58,47,47,0.18)] ${className}`}
+      className={`scrap-tilt scrap-tilt-hover inline-flex items-center gap-1.5 rounded-full border border-ink/10 px-3 py-1 shadow-[0_2px_6px_rgba(58,47,47,0.18)] ${className}`}
       style={{
         background: tint,
-        "--sticker-rotate": `${rotate}deg`,
+        "--tilt-rotate": `${rotate}deg`,
       } as CSSProperties}
     >
       {children}

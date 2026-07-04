@@ -32,6 +32,7 @@ export function Hero() {
         <TornCard
           tint="var(--color-note-yellow)"
           rotate={-5}
+          hoverTilt
           className="w-44"
           contentClassName="px-4 py-4"
         >
@@ -62,6 +63,7 @@ export function Hero() {
         <TornCard
           tint="#fffdf6"
           rotate={2}
+          hoverTilt
           className="w-48"
           contentClassName="px-5 py-5"
         >
@@ -193,6 +195,7 @@ export function Hero() {
             alt={`Photo of ${profile.name}`}
             caption={profile.photoCaption}
             rotate={0}
+            hoverTilt
           />
           <Annotation
             tone="accent"
