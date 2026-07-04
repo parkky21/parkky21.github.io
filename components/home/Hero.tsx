@@ -1,6 +1,7 @@
 import { hero, profile } from "@/lib/data";
 import {
   Arrow,
+  CatPeekDoodle,
   ChipDoodle,
   LossCurve,
   NeuralNet,
@@ -9,6 +10,7 @@ import {
   Sparkle,
 } from "@/components/Doodles";
 import { Annotation } from "@/components/scrapbook/Annotation";
+import { PaperScrap } from "@/components/scrapbook/PaperScrap";
 import { PolaroidFrame } from "@/components/scrapbook/PolaroidFrame";
 import { Reveal } from "@/components/scrapbook/Reveal";
 import { Sticker } from "@/components/scrapbook/Sticker";
@@ -75,6 +77,14 @@ export function Hero() {
       <Arrow
         className="absolute bottom-[13%] right-[20%] hidden h-14 w-14 rotate-[30deg] opacity-60 xl:block"
         color="var(--color-teal)"
+      />
+
+      {/* torn paper cutout, left edge below the note */}
+      <PaperScrap
+        tint="var(--color-note-green)"
+        rotate={-8}
+        className="absolute left-[11%] top-[36%] hidden xl:block"
+        lines={3}
       />
 
       {/* airmail stamp, left edge */}
@@ -188,6 +198,7 @@ export function Hero() {
       <div className="mx-auto flex w-full flex-col items-center gap-12 text-center md:flex-row md:justify-center md:gap-16 md:text-left">
         {/* Photo */}
         <Reveal rotate={-3} className="relative">
+          <CatPeekDoodle className="absolute -top-8 left-1/2 hidden h-9 w-24 -translate-x-1/2 md:block" />
           <PolaroidFrame
             src={profile.photo || undefined}
             alt={`Photo of ${profile.name}`}

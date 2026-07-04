@@ -1,6 +1,7 @@
 import { blogs } from "@/lib/data";
 import { noteTint } from "@/lib/palette";
-import { Sparkle } from "@/components/Doodles";
+import { MechBotDoodle, Sparkle } from "@/components/Doodles";
+import { PaperScrap } from "@/components/scrapbook/PaperScrap";
 import { Reveal } from "@/components/scrapbook/Reveal";
 import { SectionHeading } from "@/components/scrapbook/SectionHeading";
 import { Sticker } from "@/components/scrapbook/Sticker";
@@ -39,6 +40,26 @@ export function WritingSection() {
             read w/ chai
           </span>
           ☕
+        </Sticker>
+      </div>
+
+      {/* a battle-bot proofreading from the corner + a stray torn scrap */}
+      <MechBotDoodle className="absolute bottom-[10%] left-[5%] hidden h-20 w-20 rotate-3 opacity-90 lg:block" />
+      <PaperScrap
+        tint="var(--color-note-orange)"
+        rotate={-6}
+        className="absolute bottom-[16%] right-[6%] hidden lg:block"
+        lines={3}
+      />
+      <div
+        aria-hidden
+        className="absolute bottom-[6%] right-[16%] hidden select-none lg:block"
+      >
+        <Sticker rotate={5} tint="var(--color-note-blue)">
+          <span className="font-hand text-lg font-bold text-ink/85">
+            cat-reviewed, bot-approved
+          </span>
+          🐾
         </Sticker>
       </div>
 

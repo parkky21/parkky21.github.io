@@ -1,6 +1,7 @@
 import { rulebook } from "@/lib/data";
-import { Sparkle } from "@/components/Doodles";
+import { CatDoodle, MechBotDoodle, Sparkle } from "@/components/Doodles";
 import { Annotation } from "@/components/scrapbook/Annotation";
+import { PaperScrap } from "@/components/scrapbook/PaperScrap";
 import { Reveal } from "@/components/scrapbook/Reveal";
 import { SectionHeading } from "@/components/scrapbook/SectionHeading";
 import { Sticker } from "@/components/scrapbook/Sticker";
@@ -35,10 +36,21 @@ export function RuleBook() {
         </Sticker>
       </div>
 
+      {/* a battle-bot standing guard over the rules */}
+      <MechBotDoodle className="absolute bottom-[28%] left-[4%] hidden h-20 w-20 -rotate-3 opacity-90 lg:block" />
+      <PaperScrap
+        tint="var(--color-note-blue)"
+        rotate={7}
+        className="absolute bottom-[34%] right-[5%] hidden lg:block"
+        lines={2}
+      />
+
       <SectionHeading kicker="things I live by" title="The Rule Book" />
 
       <Reveal rotate={-1}>
         <div className="relative mx-auto max-w-3xl">
+          {/* a cat asleep on top of the cover */}
+          <CatDoodle className="absolute -top-12 left-10 hidden h-14 w-14 sm:block" />
           {/* cover peeking out around the pages */}
           <div
             aria-hidden
