@@ -1,47 +1,47 @@
 @import "tailwindcss";
 
 /* --------------------------------------------------------------------------
-   Theme tokens — whiteboard + marker palette
+   Theme tokens — warm scrapbook palette (cream paper, brown ink, amber+teal)
    -------------------------------------------------------------------------- */
 @theme inline {
-  --font-marker: var(--font-permanent-marker);
-  --font-hand: var(--font-kalam);
-  --font-display: var(--font-caveat);
+  --font-heading: var(--font-poppins);
+  --font-body: var(--font-nunito);
+  --font-hand: var(--font-caveat);
 
-  --color-ink: #27272a;
-  --color-board: #fcfcf9;
+  --color-paper: #fef8eb;
+  --color-ink: #3a2f2f;
+  --color-ink-soft: #6b5e5e;
 
-  --color-marker-blue: #2563eb;
-  --color-marker-red: #e11d48;
-  --color-marker-green: #16a34a;
-  --color-marker-orange: #ea580c;
-  --color-marker-purple: #7c3aed;
+  --color-accent: #e08a3c;
+  --color-accent-deep: #c9722a;
+  --color-teal: #2a9d8f;
+  --color-teal-deep: #1f7a70;
+  --color-kraft: #d9c7a7;
 
-  --color-note-yellow: #fde68a;
-  --color-note-pink: #fbcfe8;
-  --color-note-blue: #bfdbfe;
-  --color-note-green: #bbf7d0;
-  --color-note-orange: #fed7aa;
-  --color-note-purple: #ddd6fe;
+  /* warm-shifted paper tints for cards */
+  --color-note-yellow: #fdf0d0;
+  --color-note-orange: #fbe2c4;
+  --color-note-pink: #f8ded2;
+  --color-note-green: #ddeadb;
+  --color-note-blue: #d9ebe8;
+  --color-note-purple: #eae0d8;
 }
 
 /* --------------------------------------------------------------------------
-   The board itself — off-white with a faint dot grid, like a drawing surface
+   The page itself — cream grid paper, like a journal spread
    -------------------------------------------------------------------------- */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-hand), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   color: var(--color-ink);
-  background-color: #fcfcf9;
-  background-image: radial-gradient(
-    circle at center,
-    rgba(39, 39, 42, 0.06) 1px,
-    transparent 1.4px
-  );
-  background-size: 26px 26px;
+  background-color: #fef8eb;
+  background-image:
+    linear-gradient(to right, rgba(58, 47, 47, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(58, 47, 47, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -55,19 +55,13 @@ body {
   filter: url(#sketchy);
 }
 
-/* Marker-style heading font */
-.font-marker {
-  font-family: var(--font-marker), var(--font-hand), sans-serif;
-  letter-spacing: 0.01em;
-}
-
 /* A highlighter swipe behind inline text */
 .highlight {
   background: linear-gradient(
     104deg,
     transparent 0.5%,
-    var(--hl, #fef08a) 1%,
-    var(--hl, #fef08a) 99%,
+    var(--hl, #f5d9ac) 1%,
+    var(--hl, #f5d9ac) 99%,
     transparent 99.5%
   );
   padding: 0 0.15em;
@@ -76,37 +70,61 @@ body {
   -webkit-box-decoration-break: clone;
 }
 
-/* Sticky note look */
-.sticky-note {
-  position: relative;
-  box-shadow:
-    0 1px 1px rgba(0, 0, 0, 0.04),
-    0 8px 18px -8px rgba(0, 0, 0, 0.25);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+/* Scrapbook bits (stickers, torn cards, polaroids) keep their tilt via a CSS
+   var. `.scrap-tilt` alone just holds that base rotation in place;
+   `.scrap-tilt-hover` opts an element into the extra spin + pop on hover,
+   like nudging the paper with your finger. */
+.scrap-tilt {
+  transform: rotate(var(--tilt-rotate, 0deg));
 }
-.sticky-note:hover {
-  transform: translateY(-4px) rotate(-1deg) scale(1.015);
-  box-shadow:
-    0 2px 2px rgba(0, 0, 0, 0.05),
-    0 18px 30px -12px rgba(0, 0, 0, 0.35);
+.scrap-tilt-hover {
+  transition: transform 0.25s ease;
 }
-
-/* A piece of tape pinned to the top of a note */
-.tape {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  width: 70px;
-  height: 22px;
-  transform: translateX(-50%) rotate(-3deg);
-  background: rgba(255, 255, 235, 0.55);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+.scrap-tilt-hover:hover {
+  transform: rotate(calc(var(--tilt-rotate, 0deg) + 8deg)) scale(1.08);
 }
 
 /* Reduce motion for folks who ask for it */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .scrap-tilt-hover {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Print — /resume becomes a clean one-page A4 sheet
+   -------------------------------------------------------------------------- */
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
+@media print {
+  body {
+    background: #fff !important;
+    background-image: none !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .resume-sheet {
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  .resume-sheet * {
+    filter: none !important;
+  }
+  .resume-sheet a {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+  .resume-accent {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 }

@@ -18,11 +18,53 @@ export const profile = {
     github: "https://github.com/parkky21",
     linkedin: "https://linkedin.com/in/parkky",
   },
-  // A short, hand-written intro shown near the top of the page.
-  intro:
-    "Hey — I'm Parth. My work lives at the intersection of machine learning, distributed systems, and human interaction. I enjoy building things from first principles, pushing models beyond demos, and crafting AI that feels less like software and more like intelligence",
-  
+  // A short, hand-written intro shown near the top of the home page.
+  introHome:
+    "Hey — I'm Parth. I don’t chase AI hype—I build what works. AI Engineer focused on shipping fast, scalable LLM applications and voice agents with an obsession for performance and clean engineering.",
+
+  // The intro shown on the About page — separate from introHome so each can be tuned independently.
+  introAbout:
+    "AI Engineer obsessed with understanding things from first principles and turning ideas into products. I build fast, production-ready LLM applications, voice agents, and scalable AI systems, with a focus on performance, simplicity, and shipping things that actually work.",
+
   introCircle:"Let's cook !",
+
+  // A tighter, professional summary used on the printable resume page.
+  resumeSummary:
+    "I like breaking things down to first principles and building them back better. As an AI Engineer, I build fast, production-ready LLM applications, voice agents, and AI systems that solve real problems—not just look good in demos.",
+};
+
+// ----------------------------------------------------------------------------
+//  Hero section — the home page's opening scrapbook collage. Layout,
+//  rotation, and color stay in components/home/Hero.tsx; only the copy lives
+//  here so it can be edited without touching JSX.
+// ----------------------------------------------------------------------------
+
+export const hero = {
+  kicker: "✂️ pasted fresh into the scrapbook —",
+
+  // top-left torn note: crossed-out "old" approaches + the punchline
+  oldApproaches: ["rule engines", "if / else forever", "regex sorcery"],
+  realization: "1 realization: just teach the machine ✨",
+
+  // bottom-right torn note: a hand-written motto
+  quote:
+    "the best AI feels less like software and more like real human.",
+
+  airmailLabel: "PJ ULTRON",
+
+  stickers: {
+    modelTrain: { text: "model.train()", emoji: "🧠" },
+    gpuBrrr: { text: "gpu go brrr", emoji: "🔥" },
+    shipIt: { text: "ship it", emoji: "🚀" },
+    lossVibes: { text: "loss ↓ vibes ↑", emoji: "📉" },
+    attention: { text: "attention is all you need", emoji: "📎" },
+  },
+
+  annotations: {
+    neurons: "↑ neurons, doing their thing",
+    hiHuman: "hi, human 👋",
+    exhibitA: "↑ exhibit A",
+  },
 };
 
 // ----------------------------------------------------------------------------
@@ -114,6 +156,8 @@ export type Project = {
   // Replace "#" with the real GitHub URL, e.g. "https://github.com/parkky21/slm"
   repo?: string;
   link?: string;
+  // Featured projects show up on the home page (and the resume).
+  featured?: boolean;
 };
 
 export const projects: Project[] = [
@@ -125,6 +169,7 @@ export const projects: Project[] = [
     tags: ["PyTorch", "GPT-2", "Tokenizer", "Pretraining"],
     color: "orange",
     repo: "https://github.com/parkky21/Marathi-SLM",
+    featured: true,
   },
   {
     name: "OpenBee — Offline Voice Assistant",
@@ -134,6 +179,7 @@ export const projects: Project[] = [
     tags: ["Whisper", "Gemma", "Kokoro", "LiveKit", "React"],
     color: "yellow",
     repo: "https://github.com/parkky21/OpenBee",
+    featured: true,
   },
   {
     name: "MemorySearch — Semantic Image Search",
@@ -152,6 +198,7 @@ export const projects: Project[] = [
     tags: ["LlamaIndex", "LangGraph", "RAG", "FastAPI"],
     color: "green",
     repo: "https://github.com/parkky21/LocalMind",
+    featured: true,
   },
   {
     name: "Alice — Home Surveillance System",
@@ -161,6 +208,7 @@ export const projects: Project[] = [
     tags: ["QwenVL", "Quantization", "LiveKit", "Twilio"],
     color: "purple",
     repo: "https://github.com/parkky21/Alice",
+    featured: true,
   },
   {
     name: "Draupadi — AI Safety App",
@@ -214,6 +262,20 @@ export const skillGroups: { label: string; items: string[] }[] = [
 ];
 
 // ----------------------------------------------------------------------------
+//  Rule book — the philosophies written across the open book on the home page.
+//  First half lands on the left page, second half on the right.
+// ----------------------------------------------------------------------------
+
+export const rulebook: string[] = [
+  "design first entirely on a white board then implement — no code until the design is solid.",
+  "we can outsource thinking but not the understanding.",
+  "speed is the only competitive advantage in AI — iterate fast, ship fast, learn fast.",
+  "own the whole thing: the prototype, the prod deploy, and the 3am logs.",
+  "prompt engineering is narrowing down the infinite possibilities of a model to the one that works for your use case.",
+  "stay a student — this field reinvents itself every week.",
+];
+
+// ----------------------------------------------------------------------------
 //  Open source + writing
 // ----------------------------------------------------------------------------
 
@@ -222,7 +284,34 @@ export const openSource = [
   "Active contributor to open-source AI and voice-agent ecosystems.",
 ];
 
-export const blogs: { title: string; link?: string }[] = [
-  { title: "GPT Architecture — a simple explanation", link: "https://medium.com/@parkky/inside-the-magic-box-of-gpt-bde3bae13752" },
-  { title: "Causal Attention & Multi-head Attention", link: "https://medium.com/@parkky/inside-the-magic-box-2-causal-attention-and-multi-head-attention-0a9366da1d50" },
+// `sticker` is a little die-cut label slapped on the card; `emoji` and `tint`
+// (yellow | pink | blue | green | orange | purple) style it. All optional.
+export const blogs: {
+  title: string;
+  link?: string;
+  sticker?: string;
+  emoji?: string;
+  tint?: "yellow" | "pink" | "blue" | "green" | "orange" | "purple";
+}[] = [
+  {
+    title: "GPT Architecture — a simple explanation",
+    link: "https://medium.com/@parkky/inside-the-magic-box-of-gpt-bde3bae13752",
+    sticker: "start here",
+    emoji: "🧠",
+    tint: "blue",
+  },
+  {
+    title: "Causal Attention & Multi-head Attention",
+    link: "https://medium.com/@parkky/inside-the-magic-box-2-causal-attention-and-multi-head-attention-0a9366da1d50",
+    sticker: "deep dive",
+    emoji: "🔍",
+    tint: "pink",
+  },
+  {
+    title: "Paged Attention in vLLM",
+    link: "https://medium.com/@parkky/paged-attention-71875548de74?sharedUserId=parkky",
+    sticker: "save memory?",
+    emoji: "🔍",
+    tint: "yellow",
+  },
 ];
