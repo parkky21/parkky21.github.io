@@ -19,7 +19,7 @@ import { WashiTape } from "@/components/scrapbook/WashiTape";
 
 export function Hero() {
   return (
-    <section className="relative mx-auto flex min-h-[80vh] max-w-6xl items-center px-5 py-16">
+    <section className="relative mx-auto flex min-h-[90vh] max-w-6xl items-center px-5 py-16">
       {/* ----------------------------------------------------------------
           Scrapbook collage — everything hugs the edges so the center
           column (polaroid + name) always breathes. Bigger paper scraps
