@@ -20,17 +20,17 @@ export const profile = {
   },
   // A short, hand-written intro shown near the top of the home page.
   introHome:
-    "Hey — I'm Parth. My work lives at the intersection of machine learning, distributed systems, and human interaction. I enjoy building things from first principles, pushing models beyond demos, and crafting AI that feels less like software and more like intelligence",
+    "Hey — I'm Parth. I don’t chase AI hype—I build what works. AI Engineer focused on shipping fast, scalable LLM applications and voice agents with an obsession for performance and clean engineering.",
 
   // The intro shown on the About page — separate from introHome so each can be tuned independently.
   introAbout:
-    "Hey — I'm Parth. My work lives at the intersection of machine learning, distributed systems, and human interaction. I enjoy building things from first principles, pushing models beyond demos, and crafting AI that feels less like software and more like intelligence",
+    "AI Engineer obsessed with understanding things from first principles and turning ideas into products. I build fast, production-ready LLM applications, voice agents, and scalable AI systems, with a focus on performance, simplicity, and shipping things that actually work.",
 
   introCircle:"Let's cook !",
 
   // A tighter, professional summary used on the printable resume page.
   resumeSummary:
-    "AI Engineer building production-grade voice agents, language models, and multimodal systems. Experience shipping fault-tolerant AI services handling 60,000+ calls/day, fine-tuning multilingual speech models, and owning the full lifecycle from prototype to cloud deployment.",
+    "I like breaking things down to first principles and building them back better. As an AI Engineer, I build fast, production-ready LLM applications, voice agents, and AI systems that solve real problems—not just look good in demos.",
 };
 
 // ----------------------------------------------------------------------------
@@ -48,9 +48,9 @@ export const hero = {
 
   // bottom-right torn note: a hand-written motto
   quote:
-    "the best AI feels less like software and more like someone listening.",
+    "the best AI feels less like software and more like real human.",
 
-  airmailLabel: "PAR AVION",
+  airmailLabel: "PJ ULTRON",
 
   stickers: {
     modelTrain: { text: "model.train()", emoji: "🧠" },
@@ -267,12 +267,12 @@ export const skillGroups: { label: string; items: string[] }[] = [
 // ----------------------------------------------------------------------------
 
 export const rulebook: string[] = [
-  "build it from scratch at least once — that's the only way I trust that I understand it.",
-  "a demo is a promise, not a product. ship the boring parts too.",
-  "speed is a feature — nobody wants an AI that pauses to think.",
+  "design first entirely on a white board then implement — no code until the design is solid.",
+  "we can outsource thinking but not the understanding.",
+  "speed is the only competitive advantage in AI — iterate fast, ship fast, learn fast.",
   "own the whole thing: the prototype, the prod deploy, and the 3am logs.",
-  "small models + sharp constraints beat big models + vibes.",
-  "stay a student — this field reinvents itself every six months.",
+  "prompt engineering is narrowing down the infinite possibilities of a model to the one that works for your use case.",
+  "stay a student — this field reinvents itself every week.",
 ];
 
 // ----------------------------------------------------------------------------
@@ -306,5 +306,12 @@ export const blogs: {
     sticker: "deep dive",
     emoji: "🔍",
     tint: "pink",
+  },
+  {
+    title: "Paged Attention in vLLM",
+    link: "https://medium.com/@parkky/paged-attention-71875548de74?sharedUserId=parkky",
+    sticker: "save memory?",
+    emoji: "🔍",
+    tint: "yellow",
   },
 ];
