@@ -13,7 +13,6 @@ export const profile = {
   photo: "/profile.jpeg",
   photoCaption: "that's me! 👋",
   email: "parth.kale.dev@gmail.com",
-  phone: "+91 81087 09605",
   socials: {
     github: "https://github.com/parkky21",
     linkedin: "https://linkedin.com/in/parkky",

@@ -4,6 +4,7 @@ import { PaperScrap } from "@/components/scrapbook/PaperScrap";
 import { Reveal } from "@/components/scrapbook/Reveal";
 import { SectionHeading } from "@/components/scrapbook/SectionHeading";
 import { WashiTape } from "@/components/scrapbook/WashiTape";
+import { HeartSticker, LilySticker, SloganSticker } from "@/components/scrapbook/stickers";
 import { BloomOnView } from "./lily/BloomOnView";
 import LilySVG from "./lily/LilySVG";
 
@@ -38,6 +39,18 @@ export function RuleBook() {
         <div className="relative mx-auto max-w-3xl">
           {/* a cat asleep on top of the cover */}
           <CatDoodle className="absolute -top-12 right-12 hidden h-14 w-14 sm:block" />
+          {/* stickers someone pressed onto the cover */}
+          <div aria-hidden className="absolute -left-4 -top-7 z-20 hidden sm:block">
+            <LilySticker size={68} />
+          </div>
+          <div aria-hidden className="absolute -bottom-6 -right-3 z-20 hidden sm:block">
+            <HeartSticker size={50} />
+          </div>
+          <div aria-hidden className="absolute -bottom-5 left-10 z-20 hidden md:block">
+            <SloganSticker rotate={-3} color="#c62f2a" ink="#fffdf6">
+              still, I rise
+            </SloganSticker>
+          </div>
           {/* cover peeking out around the pages */}
           <div
             aria-hidden

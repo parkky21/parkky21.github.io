@@ -1,0 +1,22 @@
+/*
+ * Till-roll paper torn off at both ends: a zig-zag mask along the top and
+ * bottom edges. The mask clips box-shadows, so lift it with a drop-shadow
+ * filter on the parent.
+ */
+.receipt {
+  --tooth: 7px;
+  -webkit-mask-image:
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg),
+    linear-gradient(#000 0 0),
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg);
+  mask-image:
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg),
+    linear-gradient(#000 0 0),
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg);
+  -webkit-mask-size: calc(2 * var(--tooth)) var(--tooth), 100% calc(100% - 2 * var(--tooth) + 1px), calc(2 * var(--tooth)) var(--tooth);
+  mask-size: calc(2 * var(--tooth)) var(--tooth), 100% calc(100% - 2 * var(--tooth) + 1px), calc(2 * var(--tooth)) var(--tooth);
+  -webkit-mask-position: top, center, bottom;
+  mask-position: top, center, bottom;
+  -webkit-mask-repeat: repeat-x, no-repeat, repeat-x;
+  mask-repeat: repeat-x, no-repeat, repeat-x;
+}
