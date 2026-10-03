@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { projects } from "@/lib/data";
 import { Sparkle } from "@/components/Doodles";
 import { ProjectCard } from "@/components/projects/ProjectCard";
+import { BtwinusSpread } from "@/components/projects/BtwinusSpread";
+import { FieldSection } from "@/components/projects/field/FieldSection";
 import { SectionHeading } from "@/components/scrapbook/SectionHeading";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Voice agents, language models & multimodal experiments — the full stack of notes.",
+    "Voice agents, language models & multimodal experiments, plus an indie product and the next quest.",
 };
 
 export default function ProjectsPage() {
@@ -20,6 +22,7 @@ export default function ProjectsPage() {
       />
 
       <SectionHeading
+        as="h1"
         kicker="everything glued in so far"
         title="Projects"
         underline="var(--color-teal)"
@@ -30,11 +33,20 @@ export default function ProjectsPage() {
         experiments.
       </p>
 
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((p, i) => (
-          <ProjectCard key={p.name} project={p} index={i} />
-        ))}
-      </div>
+      <BtwinusSpread />
+
+      <section aria-labelledby="board-title">
+        <h2 id="board-title" className="sr-only">
+          Project board
+        </h2>
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((p, i) => (
+            <ProjectCard key={p.name} project={p} index={i} />
+          ))}
+        </div>
+      </section>
+
+      <FieldSection />
     </main>
   );
 }

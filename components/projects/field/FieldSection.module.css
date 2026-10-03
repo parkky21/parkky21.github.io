@@ -1,0 +1,58 @@
+/* Maps the original art palette onto the scrapbook tokens. Must sit on an ANCESTOR of the
+   FieldSVG so the custom properties cascade into it. --vellum must equal the TornCard tint,
+   or the hill mask shows as a visible patch. */
+.theme {
+  --vellum: var(--color-note-yellow);
+  --iron-gall: var(--color-ink);
+  --crimson: var(--color-accent);
+  --gilt: var(--color-teal-deep);
+  --paddy: #4f6b45;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---- art: full width of the card, ~60vh (same height rule as the original) ---- */
+.art {
+  position: relative;
+  width: 100%;
+  height: clamp(340px, 60vh, 640px);
+  /* the near paddies dissolve into the paper rather than stopping at a ruled edge;
+     the side fade keeps the terraces from ending in a hard line inside the torn card */
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 88%, transparent),
+    linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, #000 88%, transparent),
+    linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+  mask-composite: intersect;
+}
+
+@media (max-width: 720px) {
+  .art { height: clamp(300px, 50vh, 440px); }
+}
+
+/* tiny handwritten tooltip, desktop only: "on duty" */
+.tip {
+  position: absolute;
+  left: var(--x, 0);
+  top: var(--y, 0);
+  transform: translate(-50%, calc(-100% - 6px));
+  font-family: var(--font-caveat), cursive;
+  font-size: 15px;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--iron-gall);
+  background: var(--vellum);
+  padding: 4px 6px 3px;
+  border-bottom: 1px solid var(--crimson);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+}
+.tip[data-show] { opacity: 1; }
+@media (hover: none), (pointer: coarse) {
+  .tip { display: none; }
+}
+
+/* one sentence per line: the pull line is a couplet */
+.pullLine { display: block; }

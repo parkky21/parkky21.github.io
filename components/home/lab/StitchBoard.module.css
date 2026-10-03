@@ -1,0 +1,60 @@
+/* A cork pinboard with a running stitch sewn around its edge. */
+.board {
+  --color-thread: #b8382c;
+  position: relative;
+  border-radius: 20px;
+  background-color: #c9a47a;
+  background-image:
+    radial-gradient(rgba(92, 60, 30, 0.28) 1px, transparent 1.6px),
+    radial-gradient(rgba(255, 238, 205, 0.3) 1px, transparent 1.6px),
+    radial-gradient(rgba(92, 60, 30, 0.16) 1.5px, transparent 2.2px);
+  background-size: 7px 7px, 11px 11px, 17px 17px;
+  background-position: 0 0, 3px 5px, 8px 2px;
+  box-shadow:
+    inset 0 0 0 8px rgba(120, 82, 45, 0.35),
+    inset 0 2px 18px rgba(60, 38, 18, 0.35),
+    0 18px 40px -22px rgba(58, 47, 47, 0.55);
+}
+
+/* the stitched hem */
+.board::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 2px dashed rgba(255, 246, 228, 0.75);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.threads {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.pin {
+  opacity: 0;
+  animation: pin 0.35s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) forwards;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes pin {
+  from {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pin {
+    animation: none;
+    opacity: 1;
+  }
+}

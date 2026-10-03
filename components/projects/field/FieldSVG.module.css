@@ -1,0 +1,194 @@
+/* FieldSVG: the complete drawing is the default state. Draw-on only with an ancestor
+   [data-draw] (set by the client island) and motion allowed. */
+
+.field {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  --ink-ease: cubic-bezier(0.45, 0.05, 0.2, 1);
+}
+
+.ink {
+  fill: none;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+}
+
+.mask { fill: var(--vellum); }
+
+.far    { stroke: var(--iron-gall); stroke-opacity: 0.32; stroke-width: 0.9; }
+.ridge  { stroke: var(--iron-gall); stroke-opacity: 0.78; stroke-width: 1.05; }
+.strata { stroke: var(--iron-gall); stroke-opacity: 0.26; stroke-width: 0.7; }
+
+.lip    { stroke: var(--iron-gall); stroke-opacity: 0.82; stroke-width: 1; }
+.foot   { stroke: var(--iron-gall); stroke-opacity: 0.42; stroke-width: 0.75; }
+.hatch  { stroke: var(--iron-gall); stroke-opacity: 0.3; stroke-width: 0.6; }
+.water  { stroke: var(--paddy); stroke-opacity: 0.55; stroke-width: 0.8; }
+.rice   { stroke: var(--paddy); stroke-opacity: 0.85; stroke-width: 0.85; stroke-linecap: round; }
+
+/* ---- lily marks ---- */
+.lily { --d: 0s; }
+.stem  { fill: none; stroke: var(--paddy); stroke-width: 0.9; stroke-linecap: round; }
+.rays  { fill: none; stroke: var(--crimson); stroke-width: 1.15; stroke-linecap: round; }
+.leaf  { fill: none; stroke: var(--paddy); stroke-width: 1; stroke-linecap: round; display: none; }
+.hit   { fill: transparent; stroke: none; pointer-events: all; }
+
+/* ---- machines: hairline iron-gall, thin gilt for lights, sensors and scan lines ---- */
+.machine { --sw: 1; }
+.mBody  { fill: var(--vellum); stroke: var(--iron-gall); stroke-opacity: 0.9; stroke-width: calc(var(--sw) * 0.95px); }
+.mLine  { fill: none; stroke: var(--iron-gall); stroke-opacity: 0.85; stroke-width: calc(var(--sw) * 0.8px); stroke-linecap: round; }
+.mFine  { fill: none; stroke: var(--iron-gall); stroke-opacity: 0.5; stroke-width: calc(var(--sw) * 0.6px); stroke-linecap: round; }
+.mGilt  { fill: none; stroke: var(--gilt); stroke-opacity: 0.9; stroke-width: calc(var(--sw) * 0.8px); stroke-linecap: round; }
+.mGreen { fill: none; stroke: var(--paddy); stroke-opacity: 0.9; stroke-width: calc(var(--sw) * 0.8px); stroke-linecap: round; }
+.lamp, .light { fill: var(--gilt); }
+.belt   { fill: none; stroke: var(--iron-gall); stroke-opacity: 0.85; stroke-width: calc(var(--sw) * 1.5px); stroke-dasharray: 1.6 1.7; }
+.mesh   { fill: none; stroke: var(--gilt); stroke-opacity: 0.7; stroke-width: calc(var(--sw) * 0.7px); stroke-dasharray: 2.4 3.2; stroke-linecap: round; }
+.backbone { stroke-opacity: 0.5; stroke-width: 0.7px; }
+.scanDots { fill: none; stroke: var(--gilt); stroke-opacity: 0.8; stroke-width: calc(var(--sw) * 1.1px); stroke-linecap: round; }
+.trail  { fill: none; stroke: url(#field-trail); stroke-width: calc(var(--sw) * 0.7px); }
+.contrail { fill: var(--gilt); }
+.ping   { fill: none; stroke: var(--gilt); stroke-width: calc(var(--sw) * 0.7px); opacity: 0; transform-box: fill-box; transform-origin: center; }
+.beam   { opacity: 0; }
+
+/* motion paths: every roaming thing rides an offset-path laid in viewBox units */
+.roam, .scout, .fly, .contrail { offset-rotate: auto; offset-distance: 0%; }
+.fly, .contrail { offset-rotate: 0deg; }
+
+/* All of it is defined here, paused. Negative delays make the paused frame a busy frozen moment
+   (no JS, reduced motion, or out of view); [data-live] lets it run. */
+.roam, .fly, .contrail { animation: fieldRoute var(--dur) linear var(--del) infinite; }
+.scout { animation: fieldScout var(--dur) ease-in-out var(--del) infinite; }
+.face  { animation: fieldFace var(--dur) step-end var(--del) infinite; }
+.scout .ping { animation: fieldScoutPing var(--dur) ease-out var(--del) infinite; }
+.scout .beam { animation: fieldScoutBeam var(--dur) ease-out var(--del) infinite, fieldFlow 1.4s linear infinite; }
+.ping  { animation: fieldPing 4.8s ease-out infinite; }
+.belt  { animation: fieldBelt 0.9s linear infinite; }
+.mesh  { animation: fieldFlow 1.6s linear infinite; }
+.escort { animation: fieldEscort 6s ease-in-out infinite alternate; }
+.escortLink { animation: fieldEscortLink 6s ease-in-out infinite alternate, fieldFlow 1.6s linear infinite; }
+.bob, .bob2, .bob3 { animation: fieldBob 2.8s ease-in-out infinite alternate; }
+.bob2 { animation-duration: 3.4s; animation-delay: -1.3s; }
+.bob3 { animation-duration: 3.1s; animation-delay: -2.2s; }
+.pulse { animation: fieldPulse 2.6s ease-in-out infinite alternate; }
+.light { animation: fieldBlink 2.4s ease-in-out infinite; }
+
+.roam, .fly, .contrail, .scout, .face, .ping, .beam, .belt, .mesh, .escort, .escortLink,
+.bob, .bob2, .bob3, .pulse, .light { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-live] :is(.roam, .fly, .contrail, .scout, .face, .ping, .beam, .belt, .mesh, .escort, .escortLink,
+    .bob, .bob2, .bob3, .pulse, .light) { animation-play-state: running; }
+}
+
+@keyframes fieldRoute { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+/* wander out, pause and ping, on to the end, turn, wander back part way, pause and ping, home */
+@keyframes fieldScout {
+  0%   { offset-distance: 0%; }
+  16%  { offset-distance: 40%; }
+  24%  { offset-distance: 40%; }
+  44%  { offset-distance: 100%; }
+  50%  { offset-distance: 100%; }
+  62%  { offset-distance: 62%; }
+  70%  { offset-distance: 62%; }
+  92%  { offset-distance: 0%; }
+  100% { offset-distance: 0%; }
+}
+@keyframes fieldFace {
+  0%   { transform: scaleX(1); }
+  47%  { transform: scaleX(-1); }
+  96%  { transform: scaleX(1); }
+}
+@keyframes fieldScoutPing {
+  0%, 16.5% { opacity: 0; transform: scale(0.4); }
+  17%  { opacity: 0.9; transform: scale(0.5); }
+  24%  { opacity: 0; transform: scale(3.4); }
+  24.1%, 62.5% { opacity: 0; transform: scale(0.4); }
+  63%  { opacity: 0.9; transform: scale(0.5); }
+  70%  { opacity: 0; transform: scale(3.4); }
+  100% { opacity: 0; transform: scale(0.4); }
+}
+@keyframes fieldScoutBeam {
+  0%, 16.5% { opacity: 0; }
+  18%, 22% { opacity: 0.85; }
+  24%, 62.5% { opacity: 0; }
+  64%, 68% { opacity: 0.85; }
+  70%, 100% { opacity: 0; }
+}
+@keyframes fieldPing {
+  0%   { opacity: 0.85; transform: scale(0.5); }
+  45%  { opacity: 0; transform: scale(3.6); }
+  100% { opacity: 0; transform: scale(3.6); }
+}
+@keyframes fieldBelt { to { stroke-dashoffset: -3.3; } }
+@keyframes fieldFlow { to { stroke-dashoffset: -11.2; } }
+@keyframes fieldEscort {
+  from { transform: translateX(calc(var(--a) * -1)); }
+  to { transform: translateX(var(--a)); }
+}
+@keyframes fieldEscortLink {
+  from { transform: scaleX(var(--k0)); }
+  to { transform: scaleX(var(--k1)); }
+}
+
+
+
+[data-season="leaf"] .bloom { display: none; }
+[data-season="leaf"] .leaf { display: inline; }
+
+/* narrow screens see the drawing at ~0.7x: thicken the hairlines a touch */
+@media (max-width: 720px) {
+  .lip { stroke-width: 1.3; }
+  .ridge { stroke-width: 1.3; }
+  .water, .rice { stroke-width: 1.05; }
+  .rays { stroke-width: 1.4; }
+  .mBody { stroke-width: calc(var(--sw) * 1.2px); }
+  .mLine, .mGilt, .mGreen { stroke-width: calc(var(--sw) * 1.05px); }
+  .mFine { stroke-width: calc(var(--sw) * 0.8px); }
+  .small { display: none; }
+}
+
+/* ---------------------------------------------------------------- draw-on (~2.5 s) */
+@media (prefers-reduced-motion: no-preference) {
+  [data-draw] .ink {
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: 1;
+  }
+  [data-draw] .lily {
+    opacity: 0;
+  }
+  [data-draw="play"] .ink {
+    animation: fieldDraw var(--t, 1.2s) var(--ink-ease) var(--d, 0s) both;
+  }
+  [data-draw="play"] .lily {
+    animation: fieldBloom 0.6s ease-out var(--d) both;
+  }
+  [data-draw] .lit { opacity: 0; }
+  [data-draw="play"] .lit { animation: fieldBloom 0.6s ease-out var(--d) both; }
+}
+
+@keyframes fieldDraw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes fieldBob {
+  from { transform: translateY(0); }
+  to { transform: translateY(-2.6px); }
+}
+@keyframes fieldBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+@keyframes fieldPulse {
+  from { opacity: 0.25; }
+  to { opacity: 1; }
+}
+@keyframes fieldBloom {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (forced-colors: active) {
+  .field .ink, .field .stem, .field .rays, .field .leaf { stroke: CanvasText; }
+  .mask { fill: Canvas; }
+}

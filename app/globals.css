@@ -83,48 +83,23 @@ body {
 .scrap-tilt-hover:hover {
   transform: rotate(calc(var(--tilt-rotate, 0deg) + 8deg)) scale(1.08);
 }
+/* A gentler nudge for big pieces (the hero's sketch sheets) — a full
+   8deg spin on a 300px sheet would swing it into its neighbours. */
+.scrap-tilt-soft {
+  transition: transform 0.3s ease;
+}
+.scrap-tilt-soft:hover {
+  transform: rotate(calc(var(--tilt-rotate, 0deg) * -0.4)) translateY(-4px) scale(1.03);
+  z-index: 20;
+}
 
 /* Reduce motion for folks who ask for it */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .scrap-tilt-hover {
+  .scrap-tilt-hover,
+  .scrap-tilt-soft {
     transition: none;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Print — /resume becomes a clean one-page A4 sheet
-   -------------------------------------------------------------------------- */
-@page {
-  size: A4;
-  margin: 12mm;
-}
-
-@media print {
-  body {
-    background: #fff !important;
-    background-image: none !important;
-  }
-  .no-print {
-    display: none !important;
-  }
-  .resume-sheet {
-    max-width: 100% !important;
-    margin: 0 !important;
-    box-shadow: none !important;
-    transform: none !important;
-  }
-  .resume-sheet * {
-    filter: none !important;
-  }
-  .resume-sheet a {
-    color: var(--color-ink);
-    text-decoration: none;
-  }
-  .resume-accent {
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
 }
