@@ -1,0 +1,90 @@
+/* Idle loops for the brain sketch; each waits until the draw-on has finished.
+   .pulse  — a short spark of current running pad → output along one route.
+   .fire   — a node flashing; .output fires once per arriving pulse.
+   .spark  — the soldering-iron tip crackling. */
+
+.pulse {
+  opacity: 0;
+  stroke-dasharray: 0.08 1.2;
+  stroke-dashoffset: 0.08;
+  animation: pulse 3.6s linear infinite;
+}
+
+.fire {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fire 3.6s ease-out infinite;
+}
+
+/* A pulse reaches the output 60% into its 3.6s run (2.16s); three routes
+   staggered by 1.2s means one arrival every 1.2s, starting 4.2s + 2.16s. */
+.output {
+  animation-duration: 1.2s;
+  animation-delay: 6.2s;
+}
+
+.spark {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: spark 0.9s steps(3, end) 3.6s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    stroke-dashoffset: 0.08;
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  60% {
+    stroke-dashoffset: -1;
+    opacity: 1;
+  }
+  61%,
+  100% {
+    stroke-dashoffset: -1;
+    opacity: 0;
+  }
+}
+
+@keyframes fire {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  12% {
+    opacity: 0.85;
+    transform: scale(1.25);
+  }
+  40%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes spark {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7) rotate(-12deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* Reduced motion: no current, no flashes — just the finished, still sketch. */
+@media (prefers-reduced-motion: reduce) {
+  .pulse,
+  .fire,
+  .spark {
+    animation: none;
+  }
+}

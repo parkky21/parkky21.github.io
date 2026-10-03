@@ -1,0 +1,72 @@
+/* Idle loops for the transformer sketch. All start once the draw-on
+   (shared .draw/.pop, ~4s) has finished. */
+
+/* A token rides up the residual stream, slipping behind each box. */
+.token {
+  opacity: 0;
+  animation: ride 4.2s cubic-bezier(0.45, 0, 0.55, 1) 4.2s infinite;
+}
+
+@keyframes ride {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  6% {
+    opacity: 1;
+  }
+  64% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: translateY(-226px);
+  }
+}
+
+/* Attention weights re-balance in a diagonal wave across the map. */
+.cell {
+  animation: reweigh 2.6s ease-in-out calc(4.4s + var(--sd, 0s)) infinite alternate;
+}
+
+@keyframes reweigh {
+  to {
+    opacity: 0.35;
+  }
+}
+
+/* The ?! gets an exasperated shake every few seconds. */
+.wiggle {
+  transform-box: fill-box;
+  transform-origin: 50% 80%;
+  animation: wiggle 3.2s ease-in-out 4.6s infinite;
+}
+
+@keyframes wiggle {
+  0%,
+  78%,
+  100% {
+    transform: none;
+  }
+  82% {
+    transform: rotate(12deg);
+  }
+  87% {
+    transform: rotate(-9deg);
+  }
+  92% {
+    transform: rotate(5deg);
+  }
+  96% {
+    transform: rotate(-2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .token,
+  .cell,
+  .wiggle {
+    animation: none;
+  }
+}

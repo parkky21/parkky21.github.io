@@ -3,6 +3,7 @@ import { hasRepo, noteTint } from "@/lib/palette";
 import { Reveal } from "@/components/scrapbook/Reveal";
 import { TornCard } from "@/components/scrapbook/TornCard";
 import { WashiTape } from "@/components/scrapbook/WashiTape";
+import { PlateSketch } from "@/components/projects/plates/PlateSketch";
 
 const tilts = [-1.8, 1.4, -1.1, 2.2, -1.5, 1];
 const tapes = ["amber", "teal", "kraft"] as const;
@@ -20,7 +21,10 @@ export function ProjectCard({
       rotate={tilts[index % tilts.length]}
       className="h-full"
     >
-      <div className="h-full transition-transform duration-300 hover:-translate-y-1.5">
+      <div
+        data-plate
+        className="h-full transition-transform duration-300 hover:-translate-y-1.5"
+      >
         <TornCard
           tint={noteTint[project.color]}
           className="h-full"
@@ -30,6 +34,12 @@ export function ProjectCard({
             color={tapes[index % tapes.length]}
             className="-top-3 left-1/2 h-6 w-24 -translate-x-1/2 -rotate-2"
           />
+
+          {project.plate && (
+            <div className="mb-4 mt-1">
+              <PlateSketch plate={project.plate} index={index} />
+            </div>
+          )}
 
           <div className="mb-1.5 flex items-start justify-between gap-2">
             <h3 className="font-heading text-lg font-semibold leading-tight text-ink">

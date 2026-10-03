@@ -1,0 +1,175 @@
+/*
+ * House plates: fine-line engravings, gold hairlines on obsidian, crimson used sparingly.
+ * The still frame is the composed picture. Motion only runs when allowed, and then only while
+ * the plate is hovered or focused (or always, gently, on devices without hover).
+ */
+
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  color: var(--gold);
+}
+
+.art :where(path, line, rect, circle, ellipse, polyline) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.art .dim { opacity: 0.5; }
+.art .faint { opacity: 0.22; }
+.art .pale { stroke: var(--pale-gilt); }
+.art .red { stroke: var(--crimson); }
+.art .fill { fill: currentColor; stroke: none; }
+.art .redFill { fill: var(--crimson); stroke: none; }
+.art .bold { stroke-width: 1.4; }
+
+.txt,
+.deva {
+  fill: currentColor;
+  stroke: none;
+}
+.txt {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+}
+.txtMd {
+  font-size: 9px;
+}
+.txtLg {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+.deva {
+  font-family: "Kohinoor Devanagari", "Noto Sans Devanagari", "Mangal", var(--font-serif), serif;
+  font-size: 12px;
+}
+.txtRed {
+  fill: var(--crimson);
+}
+
+/* Elements that move: transforms are measured on their own box unless an origin is given. */
+.art .anim {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .art .flow {
+    stroke-dasharray: 3 5;
+    animation: flow 1.2s linear infinite;
+  }
+  .art .rain {
+    stroke-dasharray: 5 5;
+    animation: flow 0.7s linear infinite;
+  }
+  .art .bar {
+    animation: talk 0.9s ease-in-out infinite;
+    animation-delay: calc(var(--i, 0) * -0.13s);
+  }
+  .art .twinkle {
+    animation: twinkle 2.4s ease-in-out infinite;
+  }
+  .art .pulse {
+    animation: pulse 2.2s var(--ease-out) infinite;
+    animation-delay: calc(var(--i, 0) * 0.35s);
+  }
+  .art .wave {
+    animation: wave 2.1s ease-in-out infinite;
+    animation-delay: calc(var(--i, 0) * 0.3s);
+  }
+  .art .sweep {
+    animation: sweep 3.6s ease-in-out infinite;
+  }
+  .art .ring {
+    animation: ring 1.1s ease-in-out infinite;
+  }
+  .art .lit {
+    animation: lit 2.4s ease-in-out infinite;
+    animation-delay: calc(var(--i, 0) * 0.16s);
+  }
+  .art .rise {
+    animation: rise 2.4s ease-in-out infinite;
+    animation-delay: calc(var(--i, 0) * 0.12s);
+  }
+  .art .blink {
+    animation: blink 1.4s steps(1, end) infinite;
+    animation-delay: calc(var(--i, 0) * 0.2s);
+  }
+  .art .dot {
+    animation: dot 1.2s ease-in-out infinite;
+    animation-delay: calc(var(--i, 0) * 0.18s);
+  }
+  .art .shut {
+    animation: shut 2.4s var(--ease-out) infinite;
+  }
+
+  /* Paused at the composed frame until someone looks. */
+  .art :is(.flow, .rain, .bar, .twinkle, .pulse, .wave, .sweep, .ring, .lit, .rise, .blink, .dot, .shut) {
+    animation-play-state: paused;
+  }
+  :global([data-plate]):is(:hover, :focus-visible) .art :is(.flow, .rain, .bar, .twinkle, .pulse, .wave, .sweep, .ring, .lit, .rise, .blink, .dot, .shut) {
+    animation-play-state: running;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: none) {
+  .art :is(.flow, .rain, .bar, .twinkle, .pulse, .wave, .sweep, .ring, .lit, .rise, .blink, .dot, .shut) {
+    animation-play-state: running;
+  }
+}
+
+@keyframes flow {
+  to { stroke-dashoffset: -16; }
+}
+@keyframes talk {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.35); }
+}
+@keyframes twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(0.82) rotate(45deg); }
+}
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+@keyframes wave {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+@keyframes sweep {
+  0%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(-6deg); }
+  70% { transform: rotate(5deg); }
+}
+@keyframes ring {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  10%, 30%, 50% { transform: rotate(-5deg); }
+  20%, 40% { transform: rotate(5deg); }
+}
+@keyframes lit {
+  0%, 40%, 100% { stroke: currentColor; }
+  12% { stroke: var(--pale-gilt); stroke-width: 1.8; }
+}
+@keyframes rise {
+  0%, 100% { transform: translateY(0); }
+  45% { transform: translateY(-5px); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes dot {
+  0%, 100% { opacity: 0.25; }
+  40% { opacity: 1; }
+}
+@keyframes shut {
+  0%, 100% { transform: translateY(0); }
+  40%, 70% { transform: translateY(3px); }
+}

@@ -1,0 +1,5 @@
+/* While armed (below the fold, motion allowed), hold every draw-on at its first frame;
+   removing the flag lets the CSS animations run from where they were held. */
+.wrap[data-armed] :global(*) {
+  animation-play-state: paused !important;
+}

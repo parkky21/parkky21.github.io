@@ -28,9 +28,6 @@ export const profile = {
 
   introCircle:"Let's cook !",
 
-  // A tighter, professional summary used on the printable resume page.
-  resumeSummary:
-    "I like breaking things down to first principles and building them back better. As an AI Engineer, I build fast, production-ready LLM applications, voice agents, and AI systems that solve real problems—not just look good in demos.",
 };
 
 // ----------------------------------------------------------------------------
@@ -40,30 +37,47 @@ export const profile = {
 // ----------------------------------------------------------------------------
 
 export const hero = {
-  kicker: "✂️ pasted fresh into the scrapbook —",
+  kicker: "✂️ torn out of my lab notebook —",
 
-  // top-left torn note: crossed-out "old" approaches + the punchline
-  oldApproaches: ["rule engines", "if / else forever", "regex sorcery"],
-  realization: "1 realization: just teach the machine ✨",
-
-  // bottom-right torn note: a hand-written motto
-  quote:
-    "the best AI feels less like software and more like real human.",
-
-  airmailLabel: "PJ ULTRON",
-
-  stickers: {
-    modelTrain: { text: "model.train()", emoji: "🧠" },
-    gpuBrrr: { text: "gpu go brrr", emoji: "🔥" },
-    shipIt: { text: "ship it", emoji: "🚀" },
-    lossVibes: { text: "loss ↓ vibes ↑", emoji: "📉" },
-    attention: { text: "attention is all you need", emoji: "📎" },
+  // the four sketch sheets stitched around the photo (fig. order = reading order)
+  sheets: {
+    robot: {
+      fig: "fig. 01",
+      title: "robot blueprint",
+      caption: "v0.3 — still arguing with the servos.",
+    },
+    transformer: {
+      fig: "fig. 02",
+      title: "transformer, redrawn",
+      caption: "attention was all we needed. I want more.",
+    },
+    brain: {
+      fig: "fig. 03",
+      title: "brain, under construction",
+      caption: "wiring it one neuron at a time.",
+    },
+    ground: {
+      fig: "fig. 04",
+      title: "eyes in the ground",
+      caption: "the soil reports back. the crops don't know yet.",
+    },
   },
 
-  annotations: {
-    neurons: "↑ neurons, doing their thing",
-    hiHuman: "hi, human 👋",
-    exhibitA: "↑ exhibit A",
+  // "currently building" sticky note — the punch list behind the sketches
+  buildLog: {
+    title: "on the bench:",
+    items: [
+      { text: "voice agents that actually listen", done: true },
+      { text: "a robot that sketches itself", done: false },
+      { text: "fields that watch themselves grow", done: false },
+      { text: "a brain from scratch", done: false },
+    ],
+  },
+
+  // two stickers patched onto the board's corners
+  stickers: {
+    gpuBrrr: { text: "gpu go brrr", emoji: "🔥" },
+    attention: { text: "attention is all you need", emoji: "📎" },
   },
 };
 
@@ -156,8 +170,10 @@ export type Project = {
   // Replace "#" with the real GitHub URL, e.g. "https://github.com/parkky21/slm"
   repo?: string;
   link?: string;
-  // Featured projects show up on the home page (and the resume).
+  // Featured projects show up on the home page.
   featured?: boolean;
+  // Which engraved sketch to paste on the note (see components/projects/plates).
+  plate?: "openbee" | "alice" | "marathi-slm" | "localmind" | "memorysearch" | "draupadi";
 };
 
 export const projects: Project[] = [
@@ -169,6 +185,7 @@ export const projects: Project[] = [
     tags: ["PyTorch", "GPT-2", "Tokenizer", "Pretraining"],
     color: "orange",
     repo: "https://github.com/parkky21/Marathi-SLM",
+    plate: "marathi-slm",
     featured: true,
   },
   {
@@ -179,6 +196,7 @@ export const projects: Project[] = [
     tags: ["Whisper", "Gemma", "Kokoro", "LiveKit", "React"],
     color: "yellow",
     repo: "https://github.com/parkky21/OpenBee",
+    plate: "openbee",
     featured: true,
   },
   {
@@ -189,6 +207,7 @@ export const projects: Project[] = [
     tags: ["BLIP", "Embeddings", "Retrieval", "Multimodal"],
     color: "blue",
     repo: "https://github.com/parkky21/MemorySearch",
+    plate: "memorysearch",
   },
   {
     name: "LocalMind — Local Agentic RAG",
@@ -198,6 +217,7 @@ export const projects: Project[] = [
     tags: ["LlamaIndex", "LangGraph", "RAG", "FastAPI"],
     color: "green",
     repo: "https://github.com/parkky21/LocalMind",
+    plate: "localmind",
     featured: true,
   },
   {
@@ -208,6 +228,7 @@ export const projects: Project[] = [
     tags: ["QwenVL", "Quantization", "LiveKit", "Twilio"],
     color: "purple",
     repo: "https://github.com/parkky21/Alice",
+    plate: "alice",
     featured: true,
   },
   {
@@ -218,8 +239,52 @@ export const projects: Project[] = [
     tags: ["React Native", "TensorFlow", "Twilio", "GPS"],
     color: "pink",
     repo: "#",
+    plate: "draupadi",
   },
 ];
+
+// ----------------------------------------------------------------------------
+//  Indie product — the side hustle, shown as a wide spread above the board.
+//  Update `stats` as the numbers move. The screenshot lives in /public/btwinus.
+// ----------------------------------------------------------------------------
+
+export const indieProduct = {
+  name: "Btwinus",
+  tagline: "a little atelier for love letters",
+  blurb: [
+    "You write slowly, choose the paper and the wax, and send one quiet link. They break the seal; the words unfold.",
+    "This Ganpati season, three people paid for it. No ads. Someone told someone, which is the oldest kind of letter there is.",
+  ],
+  url: "https://btwinus.vercel.app/",
+  links: [
+    { label: "Write one they'll keep", href: "https://btwinus.vercel.app/" },
+    { label: "Ganpati invitations", href: "https://btwinus.vercel.app/ganpati" },
+  ],
+  stats: [
+    { label: "3 sales", color: "yellow" },
+    { label: "0 ads", color: "green" },
+    { label: "Ganpati 2026", color: "blue" },
+  ] satisfies { label: string; color: Project["color"] }[],
+  statsLabel: "Three sales, zero ads, Ganpati season 2026",
+  postscript: "p.s. built for one reader first. she read it.",
+  shot: {
+    src: "/btwinus/desktop.jpg",
+    alt: "The Btwinus homepage: 'Some feelings deserve more than a text', beside a pink envelope with a wax seal.",
+    width: 2160,
+    height: 1350,
+  },
+};
+
+// ----------------------------------------------------------------------------
+//  The Field — the someday project, drawn as an animated terrace landscape.
+// ----------------------------------------------------------------------------
+
+export const fieldNote = {
+  kicker: "the next quest — someday soon",
+  title: "The Field",
+  pull: "The bloom gets the photographs. The agents do the work.",
+  someday: "Next: an AI revolution in the field. The bulb is in the ground.",
+};
 
 // ----------------------------------------------------------------------------
 //  Skills — grouped, rendered as marker-circled clusters.
@@ -262,18 +327,21 @@ export const skillGroups: { label: string; items: string[] }[] = [
 ];
 
 // ----------------------------------------------------------------------------
-//  Rule book — the philosophies written across the open book on the home page.
-//  First half lands on the left page, second half on the right.
+//  Blood blossom — the open book on the home page. A red spider lily is pressed
+//  on the left page; the Red Rising line it stands in for is on the right.
 // ----------------------------------------------------------------------------
 
-export const rulebook: string[] = [
-  "design first entirely on a white board then implement — no code until the design is solid.",
-  "we can outsource thinking but not the understanding.",
-  "speed is the only competitive advantage in AI — iterate fast, ship fast, learn fast.",
-  "own the whole thing: the prototype, the prod deploy, and the 3am logs.",
-  "prompt engineering is narrowing down the infinite possibilities of a model to the one that works for your use case.",
-  "stay a student — this field reinvents itself every week.",
-];
+export const bloodBlossom = {
+  pageLabel: "the flower on Mars",
+  specimen: "Lycoris radiata · my stand-in",
+  // quoted verbatim from Red Rising; keep the credit with it
+  paragraphs: [
+    "“There is a flower that grows on Mars. It is red and harsh and fit for our soil. It is called haemanthus. It means ‘blood blossom.’”",
+  ],
+  credit: "— Pierce Brown, Red Rising",
+  rule: "Every time I look at this flower, it tells me the same thing: still, I rise.",
+  signoff: "— parkky 🌺",
+};
 
 // ----------------------------------------------------------------------------
 //  Open source + writing

@@ -1,0 +1,58 @@
+/* Shared motion for the lab sketches.
+   .draw  — a stroke that inks itself in. The element needs pathLength={1}.
+   .pop   — a mark (node, label, stamp) that lands after the strokes.
+   .float — a slow idle bob for something that should feel alive.
+   Stagger any of them per element with style={{ "--d": "0.6s" }}. */
+
+.draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw var(--dur, 1.4s) cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s) forwards;
+}
+
+.pop {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pop 0.45s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) forwards;
+}
+
+.float {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: float 4s ease-in-out var(--d, 0s) infinite alternate;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes float {
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+/* Reduced motion: the finished drawing, standing still. */
+@media (prefers-reduced-motion: reduce) {
+  .draw,
+  .pop,
+  .float {
+    animation: none;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}

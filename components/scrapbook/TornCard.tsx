@@ -4,7 +4,7 @@ import type { CSSProperties, ReactNode } from "react";
  * The workhorse scrapbook card: a torn-paper background layer behind crisp
  * content. The `#torn-edge` SVG filter (see SketchDefs) only distorts the
  * background div, so text stays sharp. Set `torn={false}` for a plain
- * rounded card (used on the printable resume).
+ * rounded card.
  */
 export function TornCard({
   tint = "#ffffff",

@@ -7,12 +7,16 @@ export function SectionHeading({
   underline = "var(--color-accent)",
   align = "center",
   className = "",
+  as: Tag = "h2",
+  id,
 }: {
   kicker?: string;
   title: string;
   underline?: string;
   align?: "center" | "left";
   className?: string;
+  as?: "h1" | "h2";
+  id?: string;
 }) {
   return (
     <div
@@ -21,13 +25,16 @@ export function SectionHeading({
       {kicker && (
         <p className="mb-1 font-hand text-xl text-ink-soft">{kicker}</p>
       )}
-      <h2 className="relative inline-block font-heading text-3xl font-bold text-ink sm:text-4xl">
+      <Tag
+        id={id}
+        className="relative inline-block font-heading text-3xl font-bold text-ink sm:text-4xl"
+      >
         {title}
         <ScribbleUnderline
           className="absolute -bottom-4 left-0 h-5 w-full"
           color={underline}
         />
-      </h2>
+      </Tag>
     </div>
   );
 }

@@ -9,14 +9,13 @@ const links = [
   { href: "/", label: "home" },
   { href: "/projects", label: "projects" },
   { href: "/about", label: "about" },
-  { href: "/resume", label: "resume" },
 ];
 
 export function Nav() {
   const pathname = usePathname();
 
   return (
-    <header className="no-print sticky top-0 z-50 border-b border-ink/10 bg-paper/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-ink/10 bg-paper/80 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-y-1 px-3 py-3 sm:px-5">
         {/* Logo sticker */}
         <Link href="/" aria-label="Home">

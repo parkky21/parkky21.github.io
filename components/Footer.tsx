@@ -4,7 +4,7 @@ import { Reveal } from "./scrapbook/Reveal";
 
 export function Footer() {
   return (
-    <footer className="no-print relative mx-auto max-w-4xl px-5 pb-20 pt-16 text-center">
+    <footer className="relative mx-auto max-w-4xl px-5 pb-20 pt-16 text-center">
       <Sparkle className="absolute left-[10%] top-8 h-7 w-7 rotate-12 opacity-70" />
       <Arrow
         className="absolute right-[12%] top-6 hidden h-14 w-14 rotate-[120deg] opacity-60 sm:block"
