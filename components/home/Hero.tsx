@@ -3,7 +3,15 @@ import { hero, profile } from "@/lib/data";
 import { CatPeekDoodle, ScribbleUnderline } from "@/components/Doodles";
 import { PolaroidFrame } from "@/components/scrapbook/PolaroidFrame";
 import { Reveal } from "@/components/scrapbook/Reveal";
-import { Sticker } from "@/components/scrapbook/Sticker";
+import {
+  BoltSticker,
+  BrainSticker,
+  BurstSticker,
+  CoffeeSticker,
+  HoloSticker,
+  SealSticker,
+  SloganSticker,
+} from "@/components/scrapbook/stickers";
 import { SketchSheet, type Paper } from "./lab/SketchSheet";
 import { StitchBoard } from "./lab/StitchBoard";
 import { Knot, Stitches } from "./lab/Stitches";
@@ -50,18 +58,31 @@ export function Hero() {
   return (
     <section className="mx-auto max-w-7xl px-4 pb-20 pt-8 sm:px-5 lg:pt-10">
       <StitchBoard className="px-5 py-10 sm:px-10 sm:py-12 xl:px-12">
-        {/* sticker patches on the board's corners */}
-        <div aria-hidden className="absolute -top-4 right-10 z-20 hidden select-none sm:block">
-          <Sticker rotate={4} tint="var(--color-note-green)">
-            <span className="font-hand text-lg font-bold text-ink/85">{hero.stickers.attention.text}</span>
-            {hero.stickers.attention.emoji}
-          </Sticker>
+        {/* vinyl stickers slapped along the board's frame — on the hem, never over a piece */}
+        <div aria-hidden className="absolute -top-5 right-10 z-40 hidden sm:block">
+          <HoloSticker rotate={3}>
+            {hero.stickers.attention.text} {hero.stickers.attention.emoji}
+          </HoloSticker>
         </div>
-        <div aria-hidden className="absolute -bottom-4 left-10 z-20 hidden select-none sm:block">
-          <Sticker rotate={-5} tint="var(--color-note-orange)">
-            <span className="font-hand text-lg font-bold text-ink/85">{hero.stickers.gpuBrrr.text}</span>
-            {hero.stickers.gpuBrrr.emoji}
-          </Sticker>
+        <div aria-hidden className="absolute -bottom-5 left-10 z-40 hidden sm:block">
+          <SloganSticker rotate={-4} peel>
+            {hero.stickers.gpuBrrr.text} {hero.stickers.gpuBrrr.emoji}
+          </SloganSticker>
+        </div>
+        <div aria-hidden className="absolute -left-3 -top-7 z-40 hidden md:block">
+          <BurstSticker size={92} rotate={-12}>lab open 24/7</BurstSticker>
+        </div>
+        <div aria-hidden className="absolute -bottom-9 -right-3 z-40 hidden md:block">
+          <SealSticker id="hero-seal" ring="made in mumbai · fuelled by coffee · " center="🤖" size={100} />
+        </div>
+        <div aria-hidden className="absolute -right-3 top-[38%] z-40 hidden xl:block">
+          <BoltSticker size={54} />
+        </div>
+        <div aria-hidden className="absolute -left-3 top-[46%] z-40 hidden xl:block">
+          <CoffeeSticker size={56} />
+        </div>
+        <div aria-hidden className="absolute -bottom-6 left-[42%] z-40 hidden xl:block">
+          <BrainSticker size={52} rotate={8} />
         </div>
 
         <div className="grid items-center gap-y-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_minmax(0,1fr)] xl:gap-x-10 xl:gap-y-14">

@@ -1,0 +1,52 @@
+/*
+ * A paper ticket with a tear-off stub. Two half-circle notches are punched
+ * where the perforation meets the edge (a mask, so the page shows through).
+ * Phones: the stub is a strip across the top (fixed height, so the notches
+ * know where to sit). Wider: the stub moves to the right-hand end.
+ * The mask also clips box-shadows — lift the ticket with a drop-shadow
+ * filter on its parent instead.
+ */
+.ticket {
+  --cut: 56px;
+  --notch: 9px;
+  display: grid;
+  grid-template-rows: var(--cut) auto;
+  -webkit-mask-image:
+    radial-gradient(circle var(--notch) at 0 var(--cut), #0000 97%, #000),
+    radial-gradient(circle var(--notch) at 100% var(--cut), #0000 97%, #000);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(circle var(--notch) at 0 var(--cut), #0000 97%, #000),
+    radial-gradient(circle var(--notch) at 100% var(--cut), #0000 97%, #000);
+  mask-composite: intersect;
+}
+
+.stub {
+  border-bottom: 2px dashed rgba(58, 47, 47, 0.3);
+}
+
+@media (min-width: 640px) {
+  .ticket {
+    --stub: 148px;
+    grid-template-rows: none;
+    grid-template-columns: minmax(0, 1fr) var(--stub);
+    -webkit-mask-image:
+      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0, #0000 97%, #000),
+      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%, #0000 97%, #000);
+    mask-image:
+      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0, #0000 97%, #000),
+      radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%, #0000 97%, #000);
+  }
+
+  .stub {
+    grid-column: 2;
+    grid-row: 1;
+    border-bottom: 0;
+    border-left: 2px dashed rgba(58, 47, 47, 0.3);
+  }
+
+  .main {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}

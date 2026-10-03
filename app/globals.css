@@ -28,7 +28,10 @@
 }
 
 /* --------------------------------------------------------------------------
-   The page itself — cream grid paper, like a journal spread
+   The page itself — a dot-grid journal page: cream stock with a fibre grain,
+   faint printed dots, and a little warm ageing toward the edges. Kept quiet
+   on purpose so the pieces glued on top (the cork board, cards) carry the
+   colour. (--paper-grain is defined with the paper stocks below.)
    -------------------------------------------------------------------------- */
 html {
   scroll-behavior: smooth;
@@ -37,11 +40,14 @@ html {
 body {
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   color: var(--color-ink);
-  background-color: #fef8eb;
+  background-color: #fdf6e7;
   background-image:
-    linear-gradient(to right, rgba(58, 47, 47, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(58, 47, 47, 0.05) 1px, transparent 1px);
-  background-size: 28px 28px;
+    var(--paper-grain),
+    radial-gradient(rgba(58, 47, 47, 0.16) 1px, transparent 1.4px),
+    radial-gradient(ellipse 120% 80% at 50% 0%, transparent 55%, rgba(176, 128, 62, 0.08)),
+    linear-gradient(to right, rgba(176, 128, 62, 0.07), transparent 7%, transparent 93%, rgba(176, 128, 62, 0.07));
+  background-size: auto, 24px 24px, 100% 100%, 100% 100%;
+  background-position: 0 0, 12px 12px, 0 0, 0 0;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -91,6 +97,77 @@ body {
 .scrap-tilt-soft:hover {
   transform: rotate(calc(var(--tilt-rotate, 0deg) * -0.4)) translateY(-4px) scale(1.03);
   z-index: 20;
+}
+
+/* --------------------------------------------------------------------------
+   Real paper stocks — put one on any piece to make it a different sheet.
+   Each layers a faint fibre grain over its own ruling.
+   -------------------------------------------------------------------------- */
+:root {
+  /* fractal-noise fibres, tiled; multiplied over whatever paper colour */
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.23 0 0 0 0 0.18 0 0 0 0 0.12 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.paper-grain {
+  background-image: var(--paper-grain);
+}
+
+/* school notebook: blue rules, red margin */
+.paper-lined {
+  background-color: #fffdf6;
+  background-image:
+    var(--paper-grain),
+    linear-gradient(to right, transparent 38px, rgba(196, 61, 43, 0.4) 38px, rgba(196, 61, 43, 0.4) 39px, transparent 39px),
+    repeating-linear-gradient(transparent 0 27px, rgba(31, 122, 112, 0.16) 27px 28px);
+}
+
+/* engineering graph paper */
+.paper-graph {
+  background-color: #fbfdf8;
+  background-image:
+    var(--paper-grain),
+    linear-gradient(to right, rgba(31, 122, 112, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 122, 112, 0.12) 1px, transparent 1px);
+  background-size: auto, 16px 16px, 16px 16px;
+}
+
+/* brown kraft card */
+.paper-kraft {
+  background-color: #d6bf98;
+  background-image:
+    var(--paper-grain),
+    radial-gradient(circle at 20% 30%, rgba(120, 85, 45, 0.12) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 80%, rgba(120, 85, 45, 0.1) 0 1px, transparent 2px);
+  background-size: auto, 23px 19px, 31px 27px;
+}
+
+/* old yellowed newsprint / receipt */
+.paper-aged {
+  background-color: #f6ecd2;
+  background-image:
+    var(--paper-grain),
+    radial-gradient(ellipse at 85% 10%, rgba(160, 110, 50, 0.16), transparent 45%),
+    radial-gradient(ellipse at 10% 95%, rgba(160, 110, 50, 0.12), transparent 40%);
+}
+
+/* uneven rubber-stamp ink (see Stamp.tsx) */
+.stamp-ink {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.6 2.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.6 2.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+}
+
+/* a coffee-cup ring someone left on the page */
+.coffee-ring {
+  pointer-events: none;
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    transparent 60%,
+    rgba(139, 90, 43, 0.14) 63%,
+    rgba(139, 90, 43, 0.06) 67%,
+    transparent 71%
+  );
 }
 
 /* Reduce motion for folks who ask for it */
